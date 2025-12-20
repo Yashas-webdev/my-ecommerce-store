@@ -40,26 +40,40 @@ function App() {
    
  ]; 
 
-  const testAddToCart = () => {
-  setCart([...cart,'New Item'])
- }; 
+ // REAL Add to Cart Function
+const addToCart = (product) => {
+  // Check if product already exists in cart
+  const existingItem = cart.find(item => item.id === product.id);
+  
+  if (existingItem) {
+    // Product already in cart - increase quantity
+    setCart(cart.map(item =>
+      item.id === product.id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    ));
+  } else {
+    // New product - add it with quantity 1
+    setCart([...cart, { ...product, quantity: 1 }]);
+  }
+};
 
 
  return(
   <div style={{padding : '20px'}}>
-    <h1>My E-commerce Store</h1>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+  <h1>My E-commerce Store</h1>
+  <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
+    🛒 Cart: {cart.length} items
+  </div>
+</div>
+
+<p>We have {products.length} products</p>
 
     {
       <p>We have {products.length} products in our store</p>
     }
 
-    {
-      <button onClick={testAddToCart}>
-        Ad Test Item to Cart ({cart.length} items)
-      </button>
-    }
-
-    <hr/>
 
     <h2>Our Products:</h2>
 
@@ -73,6 +87,17 @@ function App() {
         <p>Price: ${product.price}</p>
         <p>Category: {product.category}</p>
         <p>Rating: {product.rating} ⭐</p>
+
+      {/*  add to the button cart */}
+      <button onClick={()=>addToCart(product)} 
+      style={{backgroundColor: '#4CAF50',
+        color: 'white',
+        padding: '10px 20px',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '16px'}}>
+        </button>
       </div>
     ))}
     
