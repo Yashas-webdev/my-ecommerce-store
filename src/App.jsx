@@ -75,18 +75,61 @@ const addToCart = (product) => {
     }
 
 
-    <h2>Our Products:</h2>
+    <h2 style={{marginTop: '30px', marginBottom: '20px'}}>Our Products:</h2>
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+      gap: '20px',
+      marginTop: '20px'
+    }}></div>
 
     {products.map((product) => (
       <div key={product.id} style={{
-        border: '1px solid #ccc',
-        padding: '10px',
-        margin: '10 px 0'
-      }}>
-        <h3>{product.name}</h3>
-        <p>Price: ${product.price}</p>
-        <p>Category: {product.category}</p>
-        <p>Rating: {product.rating} ⭐</p>
+        border: '2px solid #ddd',
+        padding: '15px',
+        borderRadius: '12px',
+        backgroundColor: 'white',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1',
+        transition: 'transform 0.2s',
+        cursor: 'pointer'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-5px)';
+        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+      }}
+      >
+
+        <img 
+        src={product.image} 
+        alt={product.name}
+        style={{
+        width: '100%',
+        height: '200px',
+        objectFit: 'cover',
+        borderRadius: '8px',
+        marginBottom: '10px'
+      }}
+      />
+        <h3 style={{margin:'10px 0', fontSize:'18px'}}>{product.name}</h3>
+        <p style={{fontSize: '24px',
+          fontWeight: 'bold',
+          color: '#2e7d32',
+          margin: '8px 0'
+        }}>
+          Price: ${product.price}
+          </p>
+
+        <p style={{color: '#666', margin: '5px 0'}}>
+          Category: {product.category}
+          </p>
+
+        <p style={{margin: '8px 0'}}>
+          Rating: {product.rating} ⭐
+          </p>
 
       {/*  add to the button cart */}
       <button onClick={()=>addToCart(product)} 
@@ -96,7 +139,16 @@ const addToCart = (product) => {
         border: 'none',
         borderRadius: '5px',
         cursor: 'pointer',
-        fontSize: '16px'}}>
+        fontSize: '16px',
+        fontWeight: 'bold',
+        width: '100%',
+        marginTop: '10 px',
+        transition: 'background-color 0.2s'
+        }}
+        
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}>
+          Add to Cart
         </button>
       </div>
     ))}
