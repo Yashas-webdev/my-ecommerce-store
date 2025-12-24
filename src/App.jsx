@@ -57,6 +57,18 @@ const addToCart = (product) => {
     // New product - add it with quantity 1
     setCart([...cart, { ...product, quantity: 1 }]);
   }
+
+  const updateQuantity = (productId, change) => {
+  setCart(cart.map(item =>
+    item.id === productId
+      ? { ...item, quantity: Math.max(1, item.quantity + change) }
+      : item
+  ));
+  };
+
+  const removeFromCart = (productId) => {
+    setCart(cart.filter(item => item.id !== productId));
+  };
 };
 
 
