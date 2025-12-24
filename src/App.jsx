@@ -264,27 +264,110 @@ const addToCart = (product) => {
                     borderRadius: '8px',
                     backgroundColor: '#f9f9f9'
                   }}>
-                    <h3 style={{ margin: '0 0 10px 0', fontSize: '18px' }}>
-                      {item.name}
-                    </h3>
-                    <p style={{ margin: '5px 0', color: '#666' }}>
-                      Price: <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>
-                        ${item.price}
-                      </span>
-                    </p>
-                    <p style={{ margin: '5px 0', color: '#666' }}>
-                      Quantity: <span style={{ fontWeight: 'bold' }}>
-                        {item.quantity}
-                      </span>
-                    </p>
-                    <p style={{ 
-                      margin: '10px 0 0 0', 
-                      fontSize: '18px',
-                      fontWeight: 'bold',
-                      color: '#1976d2'
-                    }}>
-                      Subtotal: ${(item.price * item.quantity).toFixed(2)}
-                    </p>
+                    {/* Product name and remove button row */}
+<div style={{ 
+  display: 'flex', 
+  justifyContent: 'space-between', 
+  alignItems: 'start',
+  marginBottom: '10px'
+}}>
+          <h3 style={{ margin: 0, fontSize: '18px' }}>
+            {item.name}
+          </h3>
+          
+          {/* Remove button (trash icon) */}
+          <button
+            onClick={() => removeFromCart(item.id)}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '20px',
+              cursor: 'pointer',
+              color: '#d32f2f',
+              padding: '0'
+            }}
+          >
+            🗑️
+          </button>
+        </div>
+
+        {/* Price */}
+        <p style={{ margin: '5px 0', color: '#666' }}>
+          Price: <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>
+            ${item.price}
+          </span>
+        </p>
+
+        {/* Quantity controls row */}
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '10px',
+          marginTop: '10px',
+          marginBottom: '10px'
+        }}>
+          <span style={{ fontWeight: 'bold', color: '#666' }}>Quantity:</span>
+          
+          {/* Minus button */}
+          <button
+            onClick={() => updateQuantity(item.id, -1)}
+            style={{
+              width: '32px',
+              height: '32px',
+              border: '2px solid #ddd',
+              borderRadius: '5px',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            −
+          </button>
+          
+          {/* Quantity number */}
+          <span style={{
+            minWidth: '30px',
+            textAlign: 'center',
+            fontSize: '18px',
+            fontWeight: 'bold'
+          }}>
+            {item.quantity}
+          </span>
+          
+          {/* Plus button */}
+          <button
+            onClick={() => updateQuantity(item.id, 1)}
+            style={{
+              width: '32px',
+              height: '32px',
+              border: '2px solid #ddd',
+              borderRadius: '5px',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            +
+          </button>
+        </div>
+
+        {/* Subtotal */}
+        <p style={{ 
+          margin: '5px 0 0 0', 
+          fontSize: '18px',
+          fontWeight: 'bold',
+          color: '#1976d2'
+        }}>
+          Subtotal: ${(item.price * item.quantity).toFixed(2)}
+        </p>
                   </div>
                 ))}
                 
