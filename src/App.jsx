@@ -129,7 +129,29 @@ const addToCart = (product) => {
   </div>
 </div>
 
-<p>We have {products.length} products</p>
+{/* CATEGORY FILTER - Starting with just one button */}
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '20px',
+  marginBottom: '30px'
+}}>
+  <button
+    onClick={() => setSelectedCategory('All')}
+    style={{
+      padding: '10px 20px',
+      border: '2px solid #6366f1',
+      borderRadius: '20px',
+      backgroundColor: '#6366f1',
+      color: 'white',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      cursor: 'pointer'
+    }}
+  >
+    All
+  </button>
+</div>
 
     {
       <p>We have {products.length} products in our store</p>
