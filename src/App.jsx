@@ -32,7 +32,7 @@ function App() {
      rating : 4.3
    },
    {id:4,
-     name : 'Wireless Headphones',
+     name : 'Running Shoes',
      price : 199.99,
      category : 'Electonics',
      image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
@@ -90,14 +90,43 @@ const addToCart = (product) => {
     borderRadius: '8px',
     cursor:'pointer'
    }}
-   >
-    🛒Cart : {cart.length} items;
-   </button>
+>
+  🛒 Cart : {cart.length} items
+</button>
+</div>
 
-      {/* TEMPORARY TEST - We'll remove this soon */}
-    <p style={{ color: 'red', fontWeight: 'bold' }}>
-      Cart sidebar state: {showCart ? 'OPEN' : 'CLOSED'}
-    </p>
+{/* SEARCH BAR */}
+<div style={{
+  marginTop: '20px',
+  marginBottom: '20px',
+  maxWidth: '600px',
+  margin: '20px auto'
+}}>
+  <div style={{ position: 'relative' }}>
+    <input
+      type="text"
+      placeholder="Search for products..."
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      style={{
+        width: '100%',
+        padding: '12px 45px 12px 45px',
+        fontSize: '16px',
+        border: '2px solid #ddd',
+        borderRadius: '25px',
+        outline: 'none'
+      }}
+    />
+    <span style={{
+      position: 'absolute',
+      left: '15px',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      fontSize: '20px'
+    }}>
+      🔍
+    </span>
+  </div>
 </div>
 
 <p>We have {products.length} products</p>
@@ -114,8 +143,8 @@ const addToCart = (product) => {
       gap: '20px',
       marginTop: '20px'
     }}></div>
-
-    {products.map((product) => (
+    
+    {products.filter((product)=>product.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())).map((product) => (
       <div key={product.id} style={{
         border: '2px solid #ddd',
         padding: '15px',
@@ -125,6 +154,8 @@ const addToCart = (product) => {
         transition: 'transform 0.2s',
         cursor: 'pointer'
       }}
+
+      
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-5px)';
         e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
@@ -184,6 +215,21 @@ const addToCart = (product) => {
         </button>
       </div>
     ))}
+    {products.filter((product)=>product.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
+      ).length === 0 && (
+        <div style={{
+          textAlign: 'center',
+          padding: '50px',
+          color: '#666'
+        }}> 
+        <p style={{fontSize: '48px', margin: '20px 0'}}> 🔍 </p>
+        <h3 style={{fontSize:'24px',margin:'10px 0'}}>No products found</h3>
+        <p>Try searching for something else</p>
+        {searchQuery && (
+          <p style={{marginTop:'10px', color:'#999'}}>NO results for "{searchQuery}"</p>
+        )}
+        </div>
+       )}
 
  {/* Products map ends here */}
       
@@ -267,12 +313,12 @@ const addToCart = (product) => {
                     backgroundColor: '#f9f9f9'
                   }}>
                     {/* Product name and remove button row */}
-<div style={{ 
-  display: 'flex', 
-  justifyContent: 'space-between', 
-  alignItems: 'start',
-  marginBottom: '10px'
-}}>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'start',
+              marginBottom: '10px'
+            }}>
           <h3 style={{ margin: 0, fontSize: '18px' }}>
             {item.name}
           </h3>
