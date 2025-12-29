@@ -332,7 +332,7 @@ const addToCart = (product) => {
                     padding: '15px',
                     marginBottom: '15px',
                     borderRadius: '8px',
-                    backgroundColor: '#f9f9f9'
+                    backgroundColor: '#f9f9f9',
                   }}>
                     {/* Product name and remove button row */}
             <div style={{ 
