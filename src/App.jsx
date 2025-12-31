@@ -158,100 +158,117 @@ const addToCart = (product) => {
     }
 
 
-    <h2 style={{marginTop: '30px', marginBottom: '20px'}}>Our Products:</h2>
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-      gap: '20px',
-      marginTop: '20px'
-    }}></div>
-    
-    {products.filter((product)=>product.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())).map((product) => (
-      <div key={product.id} style={{
-        border: '2px solid #ddd',
-        padding: '15px',
-        borderRadius: '12px',
-        backgroundColor: 'white',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1',
-        transition: 'transform 0.2s',
-        cursor: 'pointer'
-      }}
+<h2 style={{marginTop: '30px', marginBottom: '20px'}}>Our Products:</h2>
 
-      
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-5px)';
-        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      }}
-      >
-
-        <img 
-        src={product.image} 
-        alt={product.name}
+{/* GRID CONTAINER - Products will appear in rows */}
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+  gap: '20px',
+  marginTop: '20px',
+  marginBottom: '40px'
+}}>
+  {products
+    .filter((product) => 
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .map((product) => (
+      <div 
+        key={product.id} 
         style={{
-        width: '100%',
-        height: '200px',
-        objectFit: 'cover',
-        borderRadius: '8px',
-        marginBottom: '10px'
-      }}
-      />
-        <h3 style={{margin:'10px 0', fontSize:'18px'}}>{product.name}</h3>
-        <p style={{fontSize: '24px',
+          border: '2px solid #ddd',
+          padding: '15px',
+          borderRadius: '12px',
+          backgroundColor: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          transition: 'transform 0.2s',
+          cursor: 'pointer'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(-5px)';
+          e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        }}
+      >
+        <img 
+          src={product.image} 
+          alt={product.name}
+          style={{
+            width: '100%',
+            height: '200px',
+            objectFit: 'cover',
+            borderRadius: '8px',
+            marginBottom: '10px'
+          }}
+        />
+        <h3 style={{margin:'10px 0', fontSize:'18px'}}>
+          {product.name}
+        </h3>
+        <p style={{
+          fontSize: '24px',
           fontWeight: 'bold',
           color: '#2e7d32',
           margin: '8px 0'
         }}>
           Price: ${product.price}
-          </p>
-
+        </p>
         <p style={{color: '#666', margin: '5px 0'}}>
           Category: {product.category}
-          </p>
-
+        </p>
         <p style={{margin: '8px 0'}}>
           Rating: {product.rating} ⭐
-          </p>
-
-      {/*  add to the button cart */}
-      <button onClick={()=>addToCart(product)} 
-      style={{backgroundColor: '#4CAF50',
-        color: 'white',
-        padding: '10px 20px',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        width: '100%',
-        marginTop: '10 px',
-        transition: 'background-color 0.2s'
-        }}
+        </p>
         
-        onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
-        onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}>
+        <button 
+          onClick={() => addToCart(product)} 
+          style={{
+            backgroundColor: '#4CAF50',
+            color: 'white',
+            padding: '10px 20px',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            width: '100%',
+            marginTop: '10px',
+            transition: 'background-color 0.2s'
+          }}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
+        >
           Add to Cart
         </button>
       </div>
-    ))}
-    {products.filter((product)=>product.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
-      ).length === 0 && (
-        <div style={{
-          textAlign: 'center',
-          padding: '50px',
-          color: '#666'
-        }}> 
-        <p style={{fontSize: '48px', margin: '20px 0'}}> 🔍 </p>
-        <h3 style={{fontSize:'24px',margin:'10px 0'}}>No products found</h3>
-        <p>Try searching for something else</p>
-        {searchQuery && (
-          <p style={{marginTop:'10px', color:'#999'}}>NO results for "{searchQuery}"</p>
-        )}
-        </div>
-       )}
+    ))
+  }
+</div>
+
+{/* No results message */}
+{products
+  .filter((product) => 
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  ).length === 0 && (
+  <div style={{
+    textAlign: 'center',
+    padding: '50px',
+    color: '#666'
+  }}> 
+    <p style={{fontSize: '48px', margin: '20px 0'}}>🔍</p>
+    <h3 style={{fontSize:'24px', margin:'10px 0'}}>
+      No products found
+    </h3>
+    <p>Try searching for something else</p>
+    {searchQuery && (
+      <p style={{marginTop:'10px', color:'#999'}}>
+        No results for "{searchQuery}"
+      </p>
+    )}
+  </div>
+)}
 
  {/* Products map ends here */}
       
