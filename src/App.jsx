@@ -211,8 +211,16 @@ const addToCart = (product) => {
 }}>
   {products
     .filter((product) => 
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+      {
+    // Check if product name matches search
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Check if product category matches selected category
+    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+    
+    // Product must match BOTH search AND category
+    return matchesSearch && matchesCategory;
+  })
     .map((product) => (
       <div 
         key={product.id} 
