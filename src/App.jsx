@@ -130,26 +130,67 @@ const addToCart = (product) => {
 </div>
 
 {/* CATEGORY FILTER - Starting with just one button */}
+{/* CATEGORY FILTERS */}
 <div style={{
   display: 'flex',
   justifyContent: 'center',
+  gap: '10px',
+  flexWrap: 'wrap',
   marginTop: '20px',
   marginBottom: '30px'
 }}>
+  {/* All Button */}
   <button
     onClick={() => setSelectedCategory('All')}
     style={{
-      padding: '10px 20px',
-      border: '2px solid #6366f1',
+      padding: '10px 24px',
+      border: selectedCategory === 'All' ? '2px solid #6366f1' : '2px solid #ddd',
       borderRadius: '20px',
-      backgroundColor: '#6366f1',
-      color: 'white',
+      backgroundColor: selectedCategory === 'All' ? '#6366f1' : 'white',
+      color: selectedCategory === 'All' ? 'white' : '#333',
       fontSize: '16px',
-      fontWeight: 'bold',
-      cursor: 'pointer'
+      fontWeight: selectedCategory === 'All' ? 'bold' : 'normal',
+      cursor: 'pointer',
+      transition: 'all 0.2s'
     }}
   >
     All
+  </button>
+  
+  {/* Electronics Button */}
+  <button
+    onClick={() => setSelectedCategory('Electronics')}
+    style={{
+      padding: '10px 24px',
+      border: selectedCategory === 'Electronics' ? '2px solid #6366f1' : '2px solid #ddd',
+      borderRadius: '20px',
+      backgroundColor: selectedCategory === 'Electronics' ? '#6366f1' : 'white',
+      color: selectedCategory === 'Electronics' ? 'white' : '#333',
+      fontSize: '16px',
+      fontWeight: selectedCategory === 'Electronics' ? 'bold' : 'normal',
+      cursor: 'pointer',
+      transition: 'all 0.2s'
+    }}
+  >
+    📱 Electronics
+  </button>
+  
+  {/* Fashion Button */}
+  <button
+    onClick={() => setSelectedCategory('Fashion')}
+    style={{
+      padding: '10px 24px',
+      border: selectedCategory === 'Fashion' ? '2px solid #6366f1' : '2px solid #ddd',
+      borderRadius: '20px',
+      backgroundColor: selectedCategory === 'Fashion' ? '#6366f1' : 'white',
+      color: selectedCategory === 'Fashion' ? 'white' : '#333',
+      fontSize: '16px',
+      fontWeight: selectedCategory === 'Fashion' ? 'bold' : 'normal',
+      cursor: 'pointer',
+      transition: 'all 0.2s'
+    }}
+  >
+    👕 Fashion
   </button>
 </div>
 
