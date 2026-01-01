@@ -13,14 +13,14 @@ function App() {
    {id:1,
      name : 'Wireless Headphones',
      price : 89.99,
-     category : 'Electonics',
+     category : 'Electronics',
      image : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',
      rating : 4.5
    },
    {id:2,
      name : 'Smart Watch',
-     price : 199.99,
-     category : 'Electonics',
+     price : 790.99,
+     category : 'Electronics',
      image : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400',
      rating : 4.8
    },
@@ -34,7 +34,7 @@ function App() {
    {id:4,
      name : 'Running Shoes',
      price : 199.99,
-     category : 'Electonics',
+     category : 'Fashion',
      image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
      rating : 4.7
    },
