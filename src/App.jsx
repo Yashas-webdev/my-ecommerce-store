@@ -242,17 +242,57 @@ const addToCart = (product) => {
           e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
         }}
       >
-        <img 
-          src={product.image} 
-          alt={product.name}
-          style={{
-            width: '100%',
-            height: '200px',
-            objectFit: 'cover',
-            borderRadius: '8px',
-            marginBottom: '10px'
-          }}
-        />
+        {/* Product Image with Heart Button */}
+<div style={{ position: 'relative' }}>
+  <img 
+    src={product.image} 
+    alt={product.name}
+    style={{
+      width: '100%',
+      height: '200px',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      marginBottom: '10px'
+    }}
+  />
+  
+  {/* Heart/Wishlist Button */}
+  <button
+    onClick={() => {
+      // Check if product is in wishlist
+      const isInWishlist = wishlist.some(item => item.id === product.id);
+      
+      if (isInWishlist) {
+        // Remove from wishlist
+        setWishlist(wishlist.filter(item => item.id !== product.id));
+      } else {
+        // Add to wishlist
+        setWishlist([...wishlist, product]);
+      }
+    }}
+    style={{
+      position: 'absolute',
+      top: '10px',
+      right: '10px',
+      width: '40px',
+      height: '40px',
+      borderRadius: '50%',
+      border: 'none',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '20px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+      transition: 'transform 0.2s'
+    }}
+    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+  >
+    {wishlist.some(item => item.id === product.id) ? '❤️' : '🤍'}
+  </button>
+</div>
         <h3 style={{margin:'10px 0', fontSize:'18px'}}>
           {product.name}
         </h3>
