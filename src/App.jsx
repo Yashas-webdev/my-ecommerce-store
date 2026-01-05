@@ -8,6 +8,7 @@ function App() {
  const [searchQuery, setSearchQuery] = useState('');
  const [selectedCategory, setSelectedCategory] = useState('All');
  const [showCart, setShowCart] = useState(false);
+ const [activeTab, setActiveTab] = useState('cart');
 
  const products = [
    {id:1,
@@ -394,29 +395,74 @@ const addToCart = (product) => {
             boxShadow: '-2px 0 10px rgba(0,0,0,0.3)',
             overflowY: 'auto'
           }}>
-            {/* Cart Header with Close Button */}
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center', 
-              marginBottom: '20px',
-              borderBottom: '2px solid #ddd',
-              paddingBottom: '10px'
-            }}>
-              <h2 style={{ margin: 0 }}>Shopping Cart</h2>
-              <button 
-                onClick={() => setShowCart(false)}
-                style={{
-                  fontSize: '28px',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: '#666'
-                }}
-              >
-                ✕
-              </button>
-            </div>
+            {/* Sidebar Header with Tabs */}
+<div style={{ marginBottom: '20px' }}>
+  {/* Top row with tab buttons and close button */}
+  <div style={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '15px'
+  }}>
+    {/* Tab Buttons Container */}
+    <div style={{ display: 'flex', gap: '10px' }}>
+      
+      {/* Cart Tab Button */}
+      <button
+        onClick={() => setActiveTab('cart')}
+        style={{
+          padding: '10px 20px',
+          border: 'none',
+          borderBottom: activeTab === 'cart' ? '3px solid #6366f1' : '3px solid transparent',
+          backgroundColor: 'transparent',
+          color: activeTab === 'cart' ? '#6366f1' : '#666',
+          fontSize: '18px',
+          fontWeight: activeTab === 'cart' ? 'bold' : 'normal',
+          cursor: 'pointer',
+          transition: 'all 0.2s'
+        }}
+      >
+        🛒 Cart ({cart.length})
+      </button>
+      
+      {/* Wishlist Tab Button */}
+      <button
+        onClick={() => setActiveTab('wishlist')}
+        style={{
+          padding: '10px 20px',
+          border: 'none',
+          borderBottom: activeTab === 'wishlist' ? '3px solid #6366f1' : '3px solid transparent',
+          backgroundColor: 'transparent',
+          color: activeTab === 'wishlist' ? '#6366f1' : '#666',
+          fontSize: '18px',
+          fontWeight: activeTab === 'wishlist' ? 'bold' : 'normal',
+          cursor: 'pointer',
+          transition: 'all 0.2s'
+        }}
+      >
+        ❤️ Wishlist ({wishlist.length})
+      </button>
+      
+    </div>
+    
+    {/* Close Button (X) */}
+    <button 
+      onClick={() => setShowCart(false)}
+      style={{
+        fontSize: '28px',
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        color: '#666'
+      }}
+    >
+      ✕
+    </button>
+  </div>
+  
+  {/* Bottom border line */}
+  <div style={{ borderBottom: '2px solid #ddd' }}></div>
+</div>
             
             {/* Check if cart is empty */}
             {cart.length === 0 ? (
