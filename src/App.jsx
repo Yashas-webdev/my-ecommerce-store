@@ -464,171 +464,270 @@ const addToCart = (product) => {
   <div style={{ borderBottom: '2px solid #ddd' }}></div>
 </div>
             
-            {/* Check if cart is empty */}
-            {cart.length === 0 ? (
-              <div style={{ 
-                textAlign: 'center', 
-                marginTop: '100px',
-                color: '#999'
-              }}>
-                <p style={{ fontSize: '48px', margin: '20px 0' }}>🛒</p>
-                <p style={{ fontSize: '20px' }}>Your cart is empty</p>
-                <p style={{ fontSize: '14px' }}>Add some products to get started!</p>
-              </div>
-            ) : (
-              <div>
-                {/* Display each cart item */}
-                {cart.map((item) => (
-                  <div key={item.id} style={{
-                    border: '1px solid #ddd',
-                    padding: '15px',
-                    marginBottom: '15px',
-                    borderRadius: '8px',
-                    backgroundColor: '#f9f9f9',
-                  }}>
-                    {/* Product name and remove button row */}
+       {/* ========================================= */}
+{/* CART TAB CONTENT */}
+{/* ========================================= */}
+{activeTab === 'cart' && (
+  <>
+    {/* Check if cart is empty */}
+    {cart.length === 0 ? (
+      <div style={{ 
+        textAlign: 'center', 
+        marginTop: '100px',
+        color: '#999'
+      }}>
+        <p style={{ fontSize: '48px', margin: '20px 0' }}>🛒</p>
+        <p style={{ fontSize: '20px' }}>Your cart is empty</p>
+        <p style={{ fontSize: '14px' }}>Add some products to get started!</p>
+      </div>
+    ) : (
+      <div>
+        {/* Display each cart item */}
+        {cart.map((item) => (
+          <div key={item.id} style={{
+            border: '1px solid #ddd',
+            padding: '15px',
+            marginBottom: '15px',
+            borderRadius: '8px',
+            backgroundColor: '#f9f9f9'
+          }}>
             <div style={{ 
               display: 'flex', 
               justifyContent: 'space-between', 
               alignItems: 'start',
               marginBottom: '10px'
             }}>
-          <h3 style={{ margin: 0, fontSize: '18px' }}>
-            {item.name}
-          </h3>
-          
-          {/* Remove button (trash icon) */}
-          <button
-            onClick={() => removeFromCart(item.id)}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '20px',
-              cursor: 'pointer',
-              color: '#d32f2f',
-              padding: '0'
-            }}
-          >
-            🗑️
-          </button>
-        </div>
+              <h3 style={{ margin: 0, fontSize: '18px' }}>
+                {item.name}
+              </h3>
+              
+              <button
+                onClick={() => removeFromCart(item.id)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '20px',
+                  cursor: 'pointer',
+                  color: '#d32f2f',
+                  padding: '0'
+                }}
+              >
+                🗑️
+              </button>
+            </div>
 
-        {/* Price */}
-        <p style={{ margin: '5px 0', color: '#666' }}>
-          Price: <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>
-            ${item.price}
-          </span>
-        </p>
+            <p style={{ margin: '5px 0', color: '#666' }}>
+              Price: <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>
+                ${item.price}
+              </span>
+            </p>
 
-        {/* Quantity controls row */}
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '10px',
-          marginTop: '10px',
-          marginBottom: '10px'
-        }}>
-          <span style={{ fontWeight: 'bold', color: '#666' }}>Quantity:</span>
-          
-          {/* Minus button */}
-          <button
-            onClick={() => updateQuantity(item.id, -1)}
-            style={{
-              width: '32px',
-              height: '32px',
-              border: '2px solid #ddd',
-              borderRadius: '5px',
-              backgroundColor: 'white',
-              cursor: 'pointer',
-              fontSize: '20px',
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '10px',
+              marginTop: '10px',
+              marginBottom: '10px'
+            }}>
+              <span style={{ fontWeight: 'bold', color: '#666' }}>Quantity:</span>
+              
+              <button
+                onClick={() => updateQuantity(item.id, -1)}
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  border: '2px solid #ddd',
+                  borderRadius: '5px',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                  fontSize: '20px',
+                  fontWeight: 'bold'
+                }}
+              >
+                −
+              </button>
+              
+              <span style={{
+                minWidth: '30px',
+                textAlign: 'center',
+                fontSize: '18px',
+                fontWeight: 'bold'
+              }}>
+                {item.quantity}
+              </span>
+              
+              <button
+                onClick={() => updateQuantity(item.id, 1)}
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  border: '2px solid #ddd',
+                  borderRadius: '5px',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                  fontSize: '20px',
+                  fontWeight: 'bold'
+                }}
+              >
+                +
+              </button>
+            </div>
+
+            <p style={{ 
+              margin: '5px 0 0 0', 
+              fontSize: '18px',
               fontWeight: 'bold',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            −
-          </button>
-          
-          {/* Quantity number */}
-          <span style={{
-            minWidth: '30px',
-            textAlign: 'center',
-            fontSize: '18px',
-            fontWeight: 'bold'
+              color: '#1976d2'
+            }}>
+              Subtotal: ${(item.price * item.quantity).toFixed(2)}
+            </p>
+          </div>
+        ))}
+        
+        {/* Cart Total */}
+        <div style={{
+          marginTop: '30px',
+          padding: '20px',
+          backgroundColor: '#f0f0f0',
+          borderRadius: '8px',
+          border: '2px solid #ddd'
+        }}>
+          <h3 style={{ 
+            fontSize: '24px',
+            margin: '0 0 15px 0',
+            color: '#333'
           }}>
-            {item.quantity}
-          </span>
-          
-          {/* Plus button */}
-          <button
-            onClick={() => updateQuantity(item.id, 1)}
-            style={{
-              width: '32px',
-              height: '32px',
-              border: '2px solid #ddd',
-              borderRadius: '5px',
-              backgroundColor: 'white',
-              cursor: 'pointer',
-              fontSize: '20px',
-              fontWeight: 'bold',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
+            Total: ${cart.reduce((total, item) => 
+              total + (item.price * item.quantity), 0
+            ).toFixed(2)}
+          </h3>
+          <button style={{
+            width: '100%',
+            padding: '15px',
+            backgroundColor: '#4CAF50',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
           >
-            +
+            Proceed to Checkout
           </button>
         </div>
+      </div>
+    )}
+  </>
+)}
 
-        {/* Subtotal */}
-        <p style={{ 
-          margin: '5px 0 0 0', 
-          fontSize: '18px',
-          fontWeight: 'bold',
-          color: '#1976d2'
-        }}>
-          Subtotal: ${(item.price * item.quantity).toFixed(2)}
-        </p>
-                  </div>
-                ))}
-                
-                {/* Cart Total and Checkout */}
-                <div style={{
-                  marginTop: '30px',
-                  padding: '20px',
-                  backgroundColor: '#f0f0f0',
-                  borderRadius: '8px',
-                  border: '2px solid #ddd'
+{/* ========================================= */}
+{/* WISHLIST TAB CONTENT */}
+{/* ========================================= */}
+{activeTab === 'wishlist' && (
+  <>
+    {/* Check if wishlist is empty */}
+    {wishlist.length === 0 ? (
+      <div style={{ 
+        textAlign: 'center', 
+        marginTop: '100px',
+        color: '#999'
+      }}>
+        <p style={{ fontSize: '48px', margin: '20px 0' }}>❤️</p>
+        <p style={{ fontSize: '20px' }}>Your wishlist is empty</p>
+        <p style={{ fontSize: '14px' }}>Click the heart on products you love!</p>
+      </div>
+    ) : (
+      <div>
+        {/* Display each wishlist item */}
+        {wishlist.map((item) => (
+          <div key={item.id} style={{
+            border: '1px solid #ddd',
+            padding: '15px',
+            marginBottom: '15px',
+            borderRadius: '8px',
+            backgroundColor: '#fff9f9'
+          }}>
+            {/* Product image and info */}
+            <div style={{ display: 'flex', gap: '15px', marginBottom: '10px' }}>
+              <img 
+                src={item.image}
+                alt={item.name}
+                style={{
+                  width: '80px',
+                  height: '80px',
+                  objectFit: 'cover',
+                  borderRadius: '8px'
+                }}
+              />
+              
+              <div style={{ flex: 1 }}>
+                <h3 style={{ margin: '0 0 5px 0', fontSize: '16px' }}>
+                  {item.name}
+                </h3>
+                <p style={{ margin: '5px 0', color: '#666', fontSize: '14px' }}>
+                  {item.category}
+                </p>
+                <p style={{ 
+                  margin: '5px 0',
+                  fontSize: '20px',
+                  fontWeight: 'bold',
+                  color: '#2e7d32'
                 }}>
-                  <h3 style={{ 
-                    fontSize: '24px',
-                    margin: '0 0 15px 0',
-                    color: '#333'
-                  }}>
-                    Total: ${cart.reduce((total, item) => 
-                      total + (item.price * item.quantity), 0
-                    ).toFixed(2)}
-                  </h3>
-                  <button style={{
-                    width: '100%',
-                    padding: '15px',
-                    backgroundColor: '#4CAF50',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '18px',
-                    fontWeight: 'bold',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
-                  >
-                    Proceed to Checkout
-                  </button>
-                </div>
+                  ${item.price}
+                </p>
               </div>
-            )}
+            </div>
+            
+            {/* Action buttons */}
+            <div style={{ 
+              display: 'flex', 
+              gap: '10px',
+              marginTop: '10px'
+            }}>
+              <button
+                onClick={() => {
+                  addToCart(item);
+                  setActiveTab('cart');
+                }}
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  backgroundColor: '#4CAF50',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer'
+                }}
+              >
+                Add to Cart
+              </button>
+              
+              <button
+                onClick={() => setWishlist(wishlist.filter(w => w.id !== item.id))}
+                style={{
+                  padding: '10px',
+                  backgroundColor: '#f44336',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </>
+)}
           </div>
         </>
       )}
