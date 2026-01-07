@@ -39,6 +39,34 @@ function App() {
      image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
      rating : 4.7
    },
+   {id:4,
+     name : 'Running Shoes',
+     price : 199.99,
+     category : 'Fashion',
+     image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
+     rating : 4.7
+   },
+   {id:4,
+     name : 'Running Shoes',
+     price : 199.99,
+     category : 'Fashion',
+     image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
+     rating : 4.7
+   },
+   {id:4,
+     name : 'Running Shoes',
+     price : 199.99,
+     category : 'Fashion',
+     image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
+     rating : 4.7
+   },
+   {id:4,
+     name : 'Running Shoes',
+     price : 199.99,
+     category : 'Fashion',
+     image : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
+     rating : 4.7
+   },
    
  ]; 
 
@@ -76,124 +104,149 @@ const addToCart = (product) => {
 
 
  return(
-  <div style={{padding : '20px'}}>
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-  <h1>My E-commerce Store</h1>
-  <button
-   onClick={() => setShowCart(true)}
-   style={{
-    fontSize: '18px',
-    fontWeight: 'bold',
-    backgroundColor: '#6366f1',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '8px',
-    cursor:'pointer'
-   }}
->
-  🛒 Cart : {cart.length} items
-</button>
-</div>
-
-{/* SEARCH BAR */}
-<div style={{
-  marginTop: '20px',
-  marginBottom: '20px',
-  maxWidth: '600px',
-  margin: '20px auto'
-}}>
-  <div style={{ position: 'relative' }}>
-    <input
-      type="text"
-      placeholder="Search for products..."
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-      style={{
-        width: '100%',
-        padding: '12px 45px 12px 45px',
-        fontSize: '16px',
-        border: '2px solid #ddd',
-        borderRadius: '25px',
-        outline: 'none'
-      }}
-    />
-    <span style={{
-      position: 'absolute',
-      left: '15px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      fontSize: '20px'
+  <div style={{padding: '0'}}>
+    
+    {/* STICKY HEADER CONTAINER */}
+    <div style={{
+      position: 'sticky',
+      top: 0,
+      backgroundColor: 'white',
+      zIndex: 100,
+      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      paddingBottom: '10px'
     }}>
-      🔍
-    </span>
-  </div>
-</div>
+      
+      {/* Top Header Bar */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        padding: '20px 20px 10px 20px',
+        backgroundColor: 'white'
+      }}>
+        <h1 style={{ margin: 0 }}>My E-commerce Store</h1>
+        <button
+          onClick={() => setShowCart(true)}
+          style={{
+            fontSize: '18px',
+            fontWeight: 'bold',
+            backgroundColor: '#6366f1',
+            color: 'white',
+            padding: '10px 20px',
+            border: 'none',
+            borderRadius: '8px',
+            cursor:'pointer'
+          }}
+        >
+          🛒 Cart : {cart.length} items
+        </button>
+      </div>
 
-{/* CATEGORY FILTER - Starting with just one button */}
-{/* CATEGORY FILTERS */}
-<div style={{
-  display: 'flex',
-  justifyContent: 'center',
-  gap: '10px',
-  flexWrap: 'wrap',
-  marginTop: '20px',
-  marginBottom: '30px'
-}}>
-  {/* All Button */}
-  <button
-    onClick={() => setSelectedCategory('All')}
-    style={{
-      padding: '10px 24px',
-      border: selectedCategory === 'All' ? '2px solid #6366f1' : '2px solid #ddd',
-      borderRadius: '20px',
-      backgroundColor: selectedCategory === 'All' ? '#6366f1' : 'white',
-      color: selectedCategory === 'All' ? 'white' : '#333',
-      fontSize: '16px',
-      fontWeight: selectedCategory === 'All' ? 'bold' : 'normal',
-      cursor: 'pointer',
-      transition: 'all 0.2s'
-    }}
-  >
-    All
-  </button>
-  
-  {/* Electronics Button */}
-  <button
-    onClick={() => setSelectedCategory('Electronics')}
-    style={{
-      padding: '10px 24px',
-      border: selectedCategory === 'Electronics' ? '2px solid #6366f1' : '2px solid #ddd',
-      borderRadius: '20px',
-      backgroundColor: selectedCategory === 'Electronics' ? '#6366f1' : 'white',
-      color: selectedCategory === 'Electronics' ? 'white' : '#333',
-      fontSize: '16px',
-      fontWeight: selectedCategory === 'Electronics' ? 'bold' : 'normal',
-      cursor: 'pointer',
-      transition: 'all 0.2s'
-    }}
-  >
-    📱 Electronics
-  </button>
-  
-  {/* Fashion Button */}
-  <button
-    onClick={() => setSelectedCategory('Fashion')}
-    style={{
-      padding: '10px 24px',
-      border: selectedCategory === 'Fashion' ? '2px solid #6366f1' : '2px solid #ddd',
-      borderRadius: '20px',
-      backgroundColor: selectedCategory === 'Fashion' ? '#6366f1' : 'white',
-      color: selectedCategory === 'Fashion' ? 'white' : '#333',
-      fontSize: '16px',
-      fontWeight: selectedCategory === 'Fashion' ? 'bold' : 'normal',
-      cursor: 'pointer',
-      transition: 'all 0.2s'
-    }}
-  >
-    👕 Fashion
-  </button>
-</div>
+      {/* Search Bar */}
+      <div style={{
+        padding: '0 20px',
+        marginTop: '15px',
+        marginBottom: '15px'
+      }}>
+        <div style={{ 
+          position: 'relative',
+          maxWidth: '600px',
+          margin: '0 auto'
+        }}>
+          <input
+            type="text"
+            placeholder="Search for products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              width: '100%',
+              padding: '12px 45px 12px 45px',
+              fontSize: '16px',
+              border: '2px solid #ddd',
+              borderRadius: '25px',
+              outline: 'none'
+            }}
+          />
+          <span style={{
+            position: 'absolute',
+            left: '15px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            fontSize: '20px'
+          }}>
+            🔍
+          </span>
+        </div>
+      </div>
+
+      {/* Category Filters */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '10px',
+        flexWrap: 'wrap',
+        padding: '0 20px',
+        paddingBottom: '10px'
+      }}>
+        {/* All Button */}
+        <button
+          onClick={() => setSelectedCategory('All')}
+          style={{
+            padding: '10px 24px',
+            border: selectedCategory === 'All' ? '2px solid #6366f1' : '2px solid #ddd',
+            borderRadius: '20px',
+            backgroundColor: selectedCategory === 'All' ? '#6366f1' : 'white',
+            color: selectedCategory === 'All' ? 'white' : '#333',
+            fontSize: '16px',
+            fontWeight: selectedCategory === 'All' ? 'bold' : 'normal',
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
+        >
+          All
+        </button>
+        
+        {/* Electronics Button */}
+        <button
+          onClick={() => setSelectedCategory('Electronics')}
+          style={{
+            padding: '10px 24px',
+            border: selectedCategory === 'Electronics' ? '2px solid #6366f1' : '2px solid #ddd',
+            borderRadius: '20px',
+            backgroundColor: selectedCategory === 'Electronics' ? '#6366f1' : 'white',
+            color: selectedCategory === 'Electronics' ? 'white' : '#333',
+            fontSize: '16px',
+            fontWeight: selectedCategory === 'Electronics' ? 'bold' : 'normal',
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
+        >
+          📱 Electronics
+        </button>
+        
+        {/* Fashion Button */}
+        <button
+          onClick={() => setSelectedCategory('Fashion')}
+          style={{
+            padding: '10px 24px',
+            border: selectedCategory === 'Fashion' ? '2px solid #6366f1' : '2px solid #ddd',
+            borderRadius: '20px',
+            backgroundColor: selectedCategory === 'Fashion' ? '#6366f1' : 'white',
+            color: selectedCategory === 'Fashion' ? 'white' : '#333',
+            fontSize: '16px',
+            fontWeight: selectedCategory === 'Fashion' ? 'bold' : 'normal',
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
+        >
+          👕 Fashion
+        </button>
+      </div>
+      
+    </div>
+    {/* END STICKY HEADER */}
+    
+   
 
     {
       <p>We have {products.length} products in our store</p>
