@@ -287,8 +287,26 @@ const addToCart = (product) => {
         >
           👕 Fashion
         </button>
-      </div>
       
+
+      {/* HOME Button */}
+      <button
+  onClick={() => setSelectedCategory('Home')}
+  style={{
+    padding: '10px 24px',
+    border: selectedCategory === 'Home' ? '2px solid #6366f1' : '2px solid #ddd',
+    borderRadius: '20px',
+    backgroundColor: selectedCategory === 'Home' ? '#6366f1' : 'white',
+    color: selectedCategory === 'Home' ? 'white' : '#333',
+    fontSize: '16px',
+    fontWeight: selectedCategory === 'Home' ? 'bold' : 'normal',
+    cursor: 'pointer',
+    transition: 'all 0.2s'
+  }}
+>
+  🏠 Home
+</button>
+ </div>
     </div>
     {/* END STICKY HEADER */}
     
