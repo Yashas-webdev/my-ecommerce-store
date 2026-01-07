@@ -704,36 +704,61 @@ const addToCart = (product) => {
             borderRadius: '8px',
             backgroundColor: '#f9f9f9'
           }}>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'start',
-              marginBottom: '10px'
-            }}>
-              <h3 style={{ margin: 0, fontSize: '18px' }}>
-                {item.name}
-              </h3>
-              
-              <button
-                onClick={() => removeFromCart(item.id)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: '20px',
-                  cursor: 'pointer',
-                  color: '#d32f2f',
-                  padding: '0'
-                }}
-              >
-                🗑️
-              </button>
-            </div>
-
-            <p style={{ margin: '5px 0', color: '#666' }}>
-              Price: <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>
-                ${item.price}
-              </span>
-            </p>
+          {/* Product image and info row */}
+<div style={{ 
+  display: 'flex', 
+  gap: '15px',
+  marginBottom: '15px'
+}}>
+  {/* Product Image */}
+  <img 
+    src={item.image}
+    alt={item.name}
+    style={{
+      width: '80px',
+      height: '80px',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      border: '1px solid #ddd'
+    }}
+  />
+  
+  {/* Product Info */}
+  <div style={{ flex: 1 }}>
+    {/* Name and Remove Button */}
+    <div style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'start',
+      marginBottom: '8px'
+    }}>
+      <h3 style={{ margin: 0, fontSize: '16px' }}>
+        {item.name}
+      </h3>
+      
+      <button
+        onClick={() => removeFromCart(item.id)}
+        style={{
+          background: 'none',
+          border: 'none',
+          fontSize: '20px',
+          cursor: 'pointer',
+          color: '#d32f2f',
+          padding: '0'
+        }}
+      >
+        🗑️
+      </button>
+    </div>
+    
+    {/* Price */}
+    <p style={{ margin: '5px 0', color: '#666', fontSize: '14px' }}>
+      Price: <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>
+        ${item.price}
+      </span>
+    </p>
+  </div>
+</div>
 
             <div style={{ 
               display: 'flex', 
