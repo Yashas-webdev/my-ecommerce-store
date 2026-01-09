@@ -9,6 +9,7 @@ function App() {
  const [selectedCategory, setSelectedCategory] = useState('All');
  const [showCart, setShowCart] = useState(false);
  const [activeTab, setActiveTab] = useState('cart');
+ const [toast, setToast] = useState(null);
 
  const products = [
   // ELECTRONICS
