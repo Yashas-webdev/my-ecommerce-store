@@ -149,6 +149,13 @@ const addToCart = (product) => {
     setCart(cart.filter(item => item.id !== productId));
   };
 
+  const showToast = (message) => {
+  setToast(message);
+  setTimeout(() => {
+    setToast(null);
+  }, 2000);
+};
+
 
  return(
   <div style={{padding: '0'}}>
