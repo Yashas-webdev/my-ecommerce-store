@@ -134,7 +134,7 @@ const addToCart = (product) => {
     setCart([...cart, { ...product, quantity: 1 }]);
   }
 
- 
+ showToast('✓ Added to cart!'); 
 };
 
  const updateQuantity = (productId, change) => {
@@ -150,6 +150,7 @@ const addToCart = (product) => {
   };
 
   const showToast = (message) => {
+    console.log('Toast triggered:', message); 
   setToast(message);
   setTimeout(() => {
     setToast(null);
@@ -978,7 +979,43 @@ const addToCart = (product) => {
         </>
       )}
       
-   
+   {/* ========================================= */}
+      {/* TOAST NOTIFICATION */}
+      {/* ========================================= */}
+      {toast && (
+        <div style={{
+          position: 'fixed',
+          bottom: '30px',
+          right: '30px',
+          backgroundColor: '#323232',
+          color: 'white',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          fontSize: '16px',
+          fontWeight: '500',
+          zIndex: 9999,
+          animation: 'slideIn 0.3s ease-out',
+          minWidth: '200px',
+          textAlign: 'center'
+        }}>
+          {toast}
+        </div>
+      )}
+      
+      {/* Add CSS animation */}
+      <style>{`
+        @keyframes slideIn {
+          from {
+            transform: translateY(100px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
     
   </div>
  );
