@@ -488,9 +488,11 @@ const addToCart = (product) => {
       if (isInWishlist) {
         // Remove from wishlist
         setWishlist(wishlist.filter(item => item.id !== product.id));
+        showToast('💔 Removed from wishlist');
       } else {
         // Add to wishlist
         setWishlist([...wishlist, product]);
+        showToast('❤️ Added to wishlist!');
       }
     }}
     style={{
