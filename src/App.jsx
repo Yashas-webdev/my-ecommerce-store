@@ -147,6 +147,7 @@ const addToCart = (product) => {
 
   const removeFromCart = (productId) => {
     setCart(cart.filter(item => item.id !== productId));
+    showToast('🗑️ Removed from cart');
   };
 
   const showToast = (message) => {
@@ -957,7 +958,10 @@ const addToCart = (product) => {
               </button>
               
               <button
-                onClick={() => setWishlist(wishlist.filter(w => w.id !== item.id))}
+                onClick={() => { setWishlist(wishlist.filter(w => w.id !== item.id))
+                  showToast('💔 Removed from wishlist');
+                }}
+                
                 style={{
                   padding: '10px',
                   backgroundColor: '#f44336',
