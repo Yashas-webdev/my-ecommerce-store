@@ -10,6 +10,7 @@ function App() {
  const [showCart, setShowCart] = useState(false);
  const [activeTab, setActiveTab] = useState('cart');
  const [toast, setToast] = useState(null);
+ const [cartBounce, setCartBounce] = useState(false);
 
  const products = [
   // ELECTRONICS
@@ -135,6 +136,13 @@ const addToCart = (product) => {
   }
 
  showToast('✓ Added to cart!'); 
+
+ // Trigger bounce animation
+  setCartBounce(true);
+  setTimeout(() => {
+    setCartBounce(false);
+  }, 500);
+
 };
 
  const updateQuantity = (productId, change) => {
@@ -182,20 +190,23 @@ const addToCart = (product) => {
       }}>
         <h1 style={{ margin: 0 }}>My E-commerce Store</h1>
         <button
-          onClick={() => setShowCart(true)}
-          style={{
-            fontSize: '18px',
-            fontWeight: 'bold',
-            backgroundColor: '#6366f1',
-            color: 'white',
-            padding: '10px 20px',
-            border: 'none',
-            borderRadius: '8px',
-            cursor:'pointer'
-          }}
-        >
-          🛒 Cart : {cart.length} items
-        </button>
+  onClick={() => setShowCart(true)}
+  style={{
+    fontSize: '18px',
+    fontWeight: 'bold',
+    backgroundColor: '#6366f1',
+    color: 'white',
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    transition: 'transform 0.1s',
+    transform: cartBounce ? 'scale(1.1)' : 'scale(1)',
+    animation: cartBounce ? 'cartBounce 0.5s ease-in-out' : 'none'
+  }}
+>
+  🛒 Cart : {cart.length} items
+</button>
       </div>
 
       {/* Search Bar */}
