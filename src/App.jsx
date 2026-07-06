@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useMemo,useCallback} from 'react';
 import { ShoppingCart, Heart, Search, Star } from 'lucide-react';
 
 function App() {
@@ -119,31 +119,26 @@ function App() {
 
 
  // REAL Add to Cart Function
-const addToCart = (product) => {
-  // Check if product already exists in cart
+
+const addToCart = useCallback((product) => {
   const existingItem = cart.find(item => item.id === product.id);
   
   if (existingItem) {
-    // Product already in cart - increase quantity
     setCart(cart.map(item =>
       item.id === product.id
         ? { ...item, quantity: item.quantity + 1 }
         : item
     ));
   } else {
-    // New product - add it with quantity 1
     setCart([...cart, { ...product, quantity: 1 }]);
   }
 
- showToast('✓ Added to cart!'); 
-
- // Trigger bounce animation
+  showToast('✓ Added to cart!');
   setCartBounce(true);
-  setTimeout(() => {
-    setCartBounce(false);
-  }, 500);
+  setTimeout(() => setCartBounce(false), 500);
+}, [cart]);
 
-};
+
 
  const updateQuantity = (productId, change) => {
   setCart(cart.map(item =>
