@@ -62,7 +62,44 @@ const ProductCard = React.memo(({ product, onAddToCart, onToggleWishlist, isWish
         </button>
       </div>
 
-      
+      <h3 style={{ margin: '10px 0', fontSize: '18px' }}>
+        {product.name}
+      </h3>
+      <p style={{
+        fontSize: '24px',
+        fontWeight: 'bold',
+        color: '#2e7d32',
+        margin: '8px 0'
+      }}>
+        Price: ${product.price}
+      </p>
+      <p style={{ color: '#666', margin: '5px 0' }}>
+        Category: {product.category}
+      </p>
+      <p style={{ margin: '8px 0' }}>
+        Rating: {product.rating} ⭐
+      </p>
+
+      <button
+        onClick={() => onAddToCart(product)}
+        style={{
+          backgroundColor: '#4CAF50',
+          color: 'white',
+          padding: '10px 20px',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          width: '100%',
+          marginTop: '10px',
+          transition: 'background-color 0.2s'
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
+      >
+        Add to Cart
+      </button>
     </div>
   );
 });
