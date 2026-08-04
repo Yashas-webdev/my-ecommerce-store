@@ -1,13 +1,13 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-// import connectDB  from './backend/config/db'
+import connectDB  from './backend/config/db'
 
 //Load env variables
 dotenv.config()
 
 //Connect to MongoDB
-// connectDB()
+connectDB()
 
 const app = express()
 
