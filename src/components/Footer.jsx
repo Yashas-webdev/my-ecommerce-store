@@ -98,7 +98,7 @@ const Footer = () => {
           color: 'var(--text-dim)',
           fontSize: '13px'
         }}>
-          &copy; {new Date().getFullYear()} Lumina Luxe. All Rights Reserved. Crafted with MERN Stack & Soft Light Glassmorphism UI.
+          &copy; {new Date().getFullYear()} Lumina Luxe. All Rights Reserved. Crafted with MERN Stack & Premium UI.
         </div>
       </div>
     </footer>

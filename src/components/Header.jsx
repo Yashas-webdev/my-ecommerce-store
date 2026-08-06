@@ -67,7 +67,7 @@ const Header = () => {
                 LUMINA LUXE
               </h1>
               <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '2.5px', fontWeight: '700' }}>
-                Boutique Glass Store
+                Boutique Store
               </span>
             </div>
           </div>
