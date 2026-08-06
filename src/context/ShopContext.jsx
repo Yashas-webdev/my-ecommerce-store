@@ -10,7 +10,8 @@ export const ShopProvider = ({ children }) => {
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [productsError, setProductsError] = useState(null);
 
-  // Shop States
+  // Shop & Navigation States
+  const [viewMode, setViewMode] = useState('store'); // 'store' | 'admin'
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem('shop_cart');
     return savedCart ? JSON.parse(savedCart) : [];
@@ -165,6 +166,7 @@ export const ShopProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    setViewMode('store');
     localStorage.removeItem('userInfo');
     showToast('Logged out successfully');
   };
@@ -285,7 +287,133 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+  // --- ADMIN API HELPER METHODS ---
+  const addNewProduct = async (productData) => {
+    try {
+      const res = await fetch('/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`
+        },
+        body: JSON.stringify(productData)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to add product');
+      showToast('✅ New product created in MongoDB!');
+      fetchProducts();
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return false;
+    }
+  };
+
+  const updateExistingProduct = async (id, productData) => {
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`
+        },
+        body: JSON.stringify(productData)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to update product');
+      showToast('✏️ Product updated successfully!');
+      fetchProducts();
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return false;
+    }
+  };
+
+  const deleteExistingProduct = async (id) => {
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to delete product');
+      showToast('🗑️ Product deleted from MongoDB!');
+      fetchProducts();
+      return true;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return false;
+    }
+  };
+
+  const fetchAllOrders = async () => {
+    try {
+      const res = await fetch('/api/orders', {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to fetch orders');
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return [];
+    }
+  };
+
+  const fetchAllUsers = async () => {
+    try {
+      const res = await fetch('/api/users', {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to fetch users');
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return [];
+    }
+  };
+
+  const markOrderDelivered = async (id) => {
+    try {
+      const res = await fetch(`/api/orders/${id}/deliver`, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to mark delivered');
+      showToast('🚚 Order marked as Delivered!');
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return false;
+    }
+  };
+
+  const deleteUserAccount = async (id) => {
+    try {
+      const res = await fetch(`/api/users/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to delete user');
+      showToast('🗑️ User deleted successfully');
+      return true;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return false;
+    }
+  };
+
   const value = {
+    // Navigation & View Mode
+    viewMode,
+    setViewMode,
+
     // Products State
     products,
     loadingProducts,
@@ -330,6 +458,15 @@ export const ShopProvider = ({ children }) => {
     removeFromWishlist,
     createOrder,
     showToast,
+
+    // Admin Helper Methods
+    addNewProduct,
+    updateExistingProduct,
+    deleteExistingProduct,
+    fetchAllOrders,
+    fetchAllUsers,
+    markOrderDelivered,
+    deleteUserAccount
   };
 
   return (

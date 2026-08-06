@@ -21,7 +21,7 @@ const CartSidebar = () => {
   } = useShop();
 
   const [checkoutStep, setCheckoutStep] = useState(false);
-  const [address, setAddress] = useState('123 Modern Glass Ave');
+  const [address, setAddress] = useState('123 Lumina Avenue');
   const [city, setCity] = useState('San Francisco');
   const [postalCode, setPostalCode] = useState('94103');
   const [country, setCountry] = useState('USA');
@@ -46,13 +46,13 @@ const CartSidebar = () => {
 
   return (
     <>
-      {/* Dark Glass Overlay */}
+      {/* Light Glass Backdrop Overlay */}
       <div
         onClick={() => setShowCart(false)}
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: 'rgba(5, 8, 16, 0.75)',
+          backgroundColor: 'rgba(15, 23, 42, 0.4)',
           backdropFilter: 'blur(8px)',
           WebkitBackdropFilter: 'blur(8px)',
           zIndex: 999
@@ -69,20 +69,20 @@ const CartSidebar = () => {
           width: '440px',
           maxWidth: '100%',
           height: '100%',
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+          borderLeft: '1px solid rgba(226, 232, 240, 0.9)',
           zIndex: 1000,
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.8)'
+          boxShadow: '-10px 0 40px rgba(15, 23, 42, 0.15)'
         }}
       >
         {/* Header Bar */}
         <div style={{
           padding: '24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -90,10 +90,10 @@ const CartSidebar = () => {
           {/* Tab Buttons */}
           <div style={{
             display: 'flex',
-            background: 'rgba(255, 255, 255, 0.05)',
+            background: 'rgba(241, 245, 249, 0.8)',
             borderRadius: '10px',
             padding: '4px',
-            border: '1px solid rgba(255, 255, 255, 0.08)'
+            border: '1px solid rgba(226, 232, 240, 0.8)'
           }}>
             <button
               onClick={() => {
@@ -106,7 +106,7 @@ const CartSidebar = () => {
                 border: 'none',
                 background: activeTab === 'cart' ? 'var(--primary)' : 'transparent',
                 color: activeTab === 'cart' ? '#fff' : 'var(--text-muted)',
-                fontWeight: '600',
+                fontWeight: '700',
                 fontSize: '13px',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
@@ -129,7 +129,7 @@ const CartSidebar = () => {
                 border: 'none',
                 background: activeTab === 'wishlist' ? 'var(--primary)' : 'transparent',
                 color: activeTab === 'wishlist' ? '#fff' : 'var(--text-muted)',
-                fontWeight: '600',
+                fontWeight: '700',
                 fontSize: '13px',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
@@ -145,8 +145,8 @@ const CartSidebar = () => {
           <button
             onClick={() => setShowCart(false)}
             style={{
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'rgba(241, 245, 249, 0.8)',
+              border: '1px solid rgba(203, 213, 225, 0.8)',
               borderRadius: '50%',
               width: '36px',
               height: '36px',
@@ -183,8 +183,9 @@ const CartSidebar = () => {
                         gap: '14px',
                         padding: '14px',
                         borderRadius: '14px',
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)'
+                        background: '#ffffff',
+                        border: '1px solid rgba(226, 232, 240, 0.9)',
+                        boxShadow: '0 4px 12px rgba(15, 23, 42, 0.03)'
                       }}>
                         <img
                           src={item.image}
@@ -199,7 +200,7 @@ const CartSidebar = () => {
 
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                            <h4 style={{ fontSize: '14px', fontWeight: '600', margin: 0, color: 'var(--text-main)' }}>
+                            <h4 style={{ fontSize: '14px', fontWeight: '700', margin: 0, color: 'var(--text-main)' }}>
                               {item.name}
                             </h4>
                             <button
@@ -207,7 +208,7 @@ const CartSidebar = () => {
                               style={{
                                 background: 'none',
                                 border: 'none',
-                                color: '#fca5a5',
+                                color: '#ef4444',
                                 cursor: 'pointer',
                                 padding: 0
                               }}
@@ -216,7 +217,7 @@ const CartSidebar = () => {
                             </button>
                           </div>
 
-                          <p style={{ fontSize: '13px', color: '#38bdf8', fontWeight: '700', margin: '0 0 10px 0' }}>
+                          <p style={{ fontSize: '13px', color: 'var(--primary)', fontWeight: '800', margin: '0 0 10px 0' }}>
                             ${Number(item.price).toFixed(2)}
                           </p>
 
@@ -227,9 +228,9 @@ const CartSidebar = () => {
                                 width: '26px',
                                 height: '26px',
                                 borderRadius: '6px',
-                                border: '1px solid rgba(255, 255, 255, 0.15)',
-                                background: 'rgba(255, 255, 255, 0.06)',
-                                color: '#fff',
+                                border: '1px solid rgba(203, 213, 225, 0.8)',
+                                background: 'rgba(241, 245, 249, 0.8)',
+                                color: 'var(--text-main)',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -249,9 +250,9 @@ const CartSidebar = () => {
                                 width: '26px',
                                 height: '26px',
                                 borderRadius: '6px',
-                                border: '1px solid rgba(255, 255, 255, 0.15)',
-                                background: 'rgba(255, 255, 255, 0.06)',
-                                color: '#fff',
+                                border: '1px solid rgba(203, 213, 225, 0.8)',
+                                background: 'rgba(241, 245, 249, 0.8)',
+                                color: 'var(--text-main)',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -280,21 +281,21 @@ const CartSidebar = () => {
               <div style={{
                 padding: '14px',
                 borderRadius: '12px',
-                background: 'rgba(139, 92, 246, 0.15)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
+                background: 'rgba(99, 102, 241, 0.1)',
+                border: '1px solid rgba(99, 102, 241, 0.25)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '10px'
               }}>
-                <MapPin size={20} color="#a78bfa" />
+                <MapPin size={20} color="var(--primary)" />
                 <div>
-                  <h4 style={{ fontSize: '14px', margin: 0, color: '#fff' }}>Shipping & Delivery Details</h4>
+                  <h4 style={{ fontSize: '14px', margin: 0, color: 'var(--text-main)', fontWeight: '700' }}>Shipping & Delivery Details</h4>
                   <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>Enter address to process MongoDB order</p>
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px' }}>Street Address</label>
+                <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '600' }}>Street Address</label>
                 <input
                   type="text"
                   required
@@ -307,7 +308,7 @@ const CartSidebar = () => {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px' }}>City</label>
+                  <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '600' }}>City</label>
                   <input
                     type="text"
                     required
@@ -318,7 +319,7 @@ const CartSidebar = () => {
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px' }}>Postal Code</label>
+                  <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '600' }}>Postal Code</label>
                   <input
                     type="text"
                     required
@@ -331,7 +332,7 @@ const CartSidebar = () => {
               </div>
 
               <div>
-                <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px' }}>Country</label>
+                <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '600' }}>Country</label>
                 <input
                   type="text"
                   required
@@ -345,8 +346,8 @@ const CartSidebar = () => {
               <div style={{
                 padding: '16px',
                 borderRadius: '12px',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: '#ffffff',
+                border: '1px solid rgba(226, 232, 240, 0.9)',
                 marginTop: '8px'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '6px' }}>
@@ -361,9 +362,9 @@ const CartSidebar = () => {
                   <span>Shipping</span>
                   <span>{cartTotal > 100 ? 'FREE' : '$10.00'}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: '800', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: '800', borderTop: '1px solid rgba(226, 232, 240, 0.8)', paddingTop: '10px' }}>
                   <span>Final Total</span>
-                  <span style={{ color: '#38bdf8' }}>
+                  <span style={{ color: 'var(--primary)' }}>
                     ${(cartTotal * 1.1 + (cartTotal > 100 ? 0 : 10)).toFixed(2)}
                   </span>
                 </div>
@@ -412,8 +413,8 @@ const CartSidebar = () => {
                         gap: '14px',
                         padding: '14px',
                         borderRadius: '14px',
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)'
+                        background: '#ffffff',
+                        border: '1px solid rgba(226, 232, 240, 0.9)'
                       }}>
                         <img
                           src={item.image}
@@ -427,10 +428,10 @@ const CartSidebar = () => {
                         />
 
                         <div style={{ flex: 1 }}>
-                          <h4 style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 4px 0', color: 'var(--text-main)' }}>
+                          <h4 style={{ fontSize: '14px', fontWeight: '700', margin: '0 0 4px 0', color: 'var(--text-main)' }}>
                             {item.name}
                           </h4>
-                          <p style={{ fontSize: '13px', color: '#38bdf8', fontWeight: '700', margin: '0 0 10px 0' }}>
+                          <p style={{ fontSize: '13px', color: 'var(--primary)', fontWeight: '800', margin: '0 0 10px 0' }}>
                             ${Number(item.price).toFixed(2)}
                           </p>
 
@@ -450,7 +451,7 @@ const CartSidebar = () => {
                               className="glass-button-secondary"
                               style={{ padding: '6px 10px' }}
                             >
-                              <Trash2 size={14} color="#fca5a5" />
+                              <Trash2 size={14} color="#ef4444" />
                             </button>
                           </div>
                         </div>
@@ -467,12 +468,12 @@ const CartSidebar = () => {
         {activeTab === 'cart' && !checkoutStep && cart.length > 0 && (
           <div style={{
             padding: '24px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-            background: 'rgba(9, 13, 22, 0.8)'
+            borderTop: '1px solid rgba(226, 232, 240, 0.8)',
+            background: 'rgba(255, 255, 255, 0.95)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
               <span style={{ color: 'var(--text-muted)', fontSize: '15px' }}>Total Amount</span>
-              <span style={{ fontSize: '22px', fontWeight: '800', color: '#38bdf8' }}>
+              <span style={{ fontSize: '22px', fontWeight: '800', color: 'var(--primary)' }}>
                 ${cartTotal.toFixed(2)}
               </span>
             </div>
@@ -489,7 +490,7 @@ const CartSidebar = () => {
               <button
                 onClick={() => openAuthModal('login')}
                 className="glass-button"
-                style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #06b6d4, #3b82f6)' }}
+                style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #0284c7, #2563eb)' }}
               >
                 <Lock size={18} /> Sign In to Checkout
               </button>

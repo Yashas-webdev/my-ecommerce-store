@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <footer style={{
       marginTop: '80px',
-      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-      background: 'rgba(9, 13, 22, 0.95)',
+      borderTop: '1px solid rgba(226, 232, 240, 0.8)',
+      background: 'rgba(255, 255, 255, 0.85)',
       backdropFilter: 'blur(20px)',
       padding: '60px 24px 30px 24px'
     }}>
@@ -24,7 +24,7 @@ const Footer = () => {
                 width: '36px',
                 height: '36px',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
+                background: 'linear-gradient(135deg, #6366f1, #0284c7)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -32,11 +32,11 @@ const Footer = () => {
                 <Sparkles size={18} color="#ffffff" />
               </div>
               <h3 className="gradient-text" style={{ fontSize: '20px', fontWeight: '800', margin: 0 }}>
-                ELEGANT SHOP
+                LUMINA LUXE
               </h3>
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6', margin: '0 0 20px 0' }}>
-              Premium MERN Stack e-commerce platform built with React, Node.js, Express, and MongoDB.
+              Boutique MERN Stack e-commerce platform built with React, Node.js, Express, and MongoDB.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <SocialIcon icon={<Github size={18} />} />
@@ -78,13 +78,13 @@ const Footer = () => {
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-muted)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Mail size={16} color="#a78bfa" /> support@elegantshop.com
+                <Mail size={16} color="var(--primary)" /> support@luminaluxe.com
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Phone size={16} color="#38bdf8" /> +1 (555) 987-6543
+                <Phone size={16} color="#0284c7" /> +1 (555) 987-6543
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <MapPin size={16} color="#f472b6" /> San Francisco, CA, USA
+                <MapPin size={16} color="#e11d48" /> San Francisco, CA, USA
               </div>
             </div>
           </div>
@@ -92,13 +92,13 @@ const Footer = () => {
 
         {/* Copyright */}
         <div style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          borderTop: '1px solid rgba(226, 232, 240, 0.8)',
           paddingTop: '24px',
           textAlign: 'center',
           color: 'var(--text-dim)',
           fontSize: '13px'
         }}>
-          &copy; {new Date().getFullYear()} Elegant Shop. All Rights Reserved. Built with MERN Stack & Glassmorphism UI.
+          &copy; {new Date().getFullYear()} Lumina Luxe. All Rights Reserved. Crafted with MERN Stack & Soft Light Glassmorphism UI.
         </div>
       </div>
     </footer>
@@ -115,7 +115,7 @@ const FooterLink = ({ label }) => (
         fontSize: '14px',
         transition: 'color 0.2s'
       }}
-      onMouseEnter={(e) => e.target.style.color = '#a78bfa'}
+      onMouseEnter={(e) => e.target.style.color = 'var(--primary)'}
       onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
     >
       {label}

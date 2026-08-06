@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
-import { Sparkles, Mail, Lock, User, UserPlus, LogIn, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Sparkles, Mail, Lock, User, UserPlus, LogIn, ArrowRight } from 'lucide-react';
 
 const AuthPage = () => {
   const { login, register, authLoading, authError } = useShop();
@@ -41,9 +41,9 @@ const AuthPage = () => {
       padding: '24px',
       position: 'relative',
       overflow: 'hidden',
-      background: '#090d16'
+      background: '#f8fafc'
     }}>
-      {/* Background Ambient Glows */}
+      {/* Ambient Soft Glow Orbs */}
       <div style={{
         position: 'absolute',
         top: '-15%',
@@ -51,7 +51,7 @@ const AuthPage = () => {
         width: '500px',
         height: '500px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%)',
         filter: 'blur(60px)',
         pointerEvents: 'none'
       }} />
@@ -62,7 +62,7 @@ const AuthPage = () => {
         width: '500px',
         height: '500px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, transparent 70%)',
         filter: 'blur(60px)',
         pointerEvents: 'none'
       }} />
@@ -76,9 +76,9 @@ const AuthPage = () => {
           padding: '40px',
           position: 'relative',
           zIndex: 10,
-          background: 'rgba(15, 23, 42, 0.85)',
-          boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(139, 92, 246, 0.25)',
-          border: '1px solid rgba(139, 92, 246, 0.3)',
+          background: 'rgba(255, 255, 255, 0.88)',
+          boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.08), 0 0 30px rgba(99, 102, 241, 0.15)',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
           borderRadius: '24px'
         }}
       >
@@ -90,14 +90,14 @@ const AuthPage = () => {
             gap: '10px',
             padding: '10px 18px',
             borderRadius: '30px',
-            background: 'rgba(139, 92, 246, 0.15)',
-            border: '1px solid rgba(139, 92, 246, 0.3)',
-            color: '#a78bfa',
+            background: 'rgba(99, 102, 241, 0.1)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
+            color: 'var(--primary)',
             fontSize: '13px',
-            fontWeight: '600',
+            fontWeight: '700',
             marginBottom: '16px'
           }}>
-            <Sparkles size={16} color="#a78bfa" /> ELEGANT SHOP AUTH
+            <Sparkles size={16} color="var(--primary)" /> LUMINA LUXE AUTH
           </div>
 
           <h1 className="gradient-text" style={{ fontSize: '32px', fontWeight: '800', margin: '0 0 8px 0', letterSpacing: '-0.5px' }}>
@@ -105,7 +105,7 @@ const AuthPage = () => {
           </h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0, lineHeight: '1.5' }}>
             {isSignUp 
-              ? 'Sign up to unlock the exclusive MERN Glass store catalog' 
+              ? 'Sign up to unlock the exclusive Lumina Luxe boutique catalog' 
               : 'Sign in to access your cart, orders & account'}
           </p>
         </div>
@@ -113,9 +113,9 @@ const AuthPage = () => {
         {/* Error Alert */}
         {authError && (
           <div style={{
-            background: 'rgba(239, 68, 68, 0.15)',
+            background: 'rgba(254, 242, 242, 0.9)',
             border: '1px solid rgba(239, 68, 68, 0.3)',
-            color: '#fca5a5',
+            color: '#991b1b',
             padding: '12px 16px',
             borderRadius: '12px',
             fontSize: '13px',
@@ -130,7 +130,7 @@ const AuthPage = () => {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           {isSignUp && (
             <div>
-              <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '500' }}>
+              <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '600' }}>
                 Full Name
               </label>
               <div style={{ position: 'relative' }}>
@@ -149,7 +149,7 @@ const AuthPage = () => {
           )}
 
           <div>
-            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '500' }}>
+            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '600' }}>
               Email Address
             </label>
             <div style={{ position: 'relative' }}>
@@ -167,7 +167,7 @@ const AuthPage = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '500' }}>
+            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '13px', marginBottom: '6px', fontWeight: '600' }}>
               Password
             </label>
             <div style={{ position: 'relative' }}>
@@ -212,8 +212,8 @@ const AuthPage = () => {
           </button>
         </form>
 
-        {/* Direct Link Navigation between Sign Up and Sign In */}
-        <div style={{ textAlign: 'center', marginTop: '24px', paddingTop: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        {/* Direct Link Navigation */}
+        <div style={{ textAlign: 'center', marginTop: '24px', paddingTop: '20px', borderTop: '1px solid rgba(226, 232, 240, 0.8)' }}>
           {isSignUp ? (
             <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
               Already have an account?{' '}
@@ -223,7 +223,7 @@ const AuthPage = () => {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#38bdf8',
+                  color: 'var(--primary)',
                   fontWeight: '700',
                   cursor: 'pointer',
                   fontSize: '14px',
@@ -244,7 +244,7 @@ const AuthPage = () => {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#a78bfa',
+                  color: 'var(--primary)',
                   fontWeight: '700',
                   cursor: 'pointer',
                   fontSize: '14px',
@@ -261,7 +261,7 @@ const AuthPage = () => {
 
         {/* Quick Demo Test Logins */}
         <div style={{ marginTop: '20px', paddingTop: '16px' }}>
-          <p style={{ color: 'var(--text-dim)', fontSize: '11px', textAlign: 'center', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+          <p style={{ color: 'var(--text-dim)', fontSize: '11px', textAlign: 'center', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: '700' }}>
             ⚡ Instant Demo Login Test
           </p>
           <div style={{ display: 'flex', gap: '10px' }}>
@@ -277,7 +277,7 @@ const AuthPage = () => {
               type="button"
               onClick={() => handleDemoLogin('admin@example.com', 'password123')}
               className="glass-button-secondary"
-              style={{ flex: 1, padding: '8px', fontSize: '12px', borderColor: 'rgba(139, 92, 246, 0.4)', color: '#a78bfa' }}
+              style={{ flex: 1, padding: '8px', fontSize: '12px', borderColor: 'rgba(99, 102, 241, 0.4)', color: 'var(--primary)' }}
             >
               Admin Demo
             </button>

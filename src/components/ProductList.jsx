@@ -35,12 +35,12 @@ const ProductList = () => {
             gap: '8px',
             color: 'var(--primary)',
             fontSize: '13px',
-            fontWeight: '600',
+            fontWeight: '700',
             marginBottom: '4px'
           }}>
             <Package size={16} /> LIVE MONGO DB CATALOG
           </div>
-          <h2 style={{ fontSize: '28px', fontWeight: '800', margin: 0 }}>
+          <h2 style={{ fontSize: '28px', fontWeight: '800', margin: 0, color: 'var(--text-main)' }}>
             Featured <span className="gradient-text">Products</span>
           </h2>
         </div>
@@ -55,12 +55,12 @@ const ProductList = () => {
         <div style={{
           padding: '80px 20px',
           textAlign: 'center',
-          background: 'rgba(255, 255, 255, 0.02)',
+          background: 'rgba(255, 255, 255, 0.8)',
           borderRadius: '20px',
-          border: '1px solid rgba(255, 255, 255, 0.08)'
+          border: '1px solid rgba(226, 232, 240, 0.9)'
         }}>
           <RefreshCw size={36} color="var(--primary)" style={{ animation: 'logo-spin 1.5s linear infinite', marginBottom: '16px' }} />
-          <h3 style={{ fontSize: '18px', margin: '0 0 6px 0' }}>Fetching Products from Database...</h3>
+          <h3 style={{ fontSize: '18px', margin: '0 0 6px 0', color: 'var(--text-main)' }}>Fetching Products from Database...</h3>
           <p style={{ color: 'var(--text-dim)', fontSize: '14px', margin: 0 }}>Connecting to Express / MongoDB backend</p>
         </div>
       )}
@@ -71,10 +71,10 @@ const ProductList = () => {
           padding: '30px',
           textAlign: 'center',
           borderColor: 'rgba(239, 68, 68, 0.4)',
-          background: 'rgba(239, 68, 68, 0.08)'
+          background: 'rgba(254, 242, 242, 0.9)'
         }}>
           <AlertTriangle size={36} color="#ef4444" style={{ marginBottom: '12px' }} />
-          <h3 style={{ fontSize: '18px', color: '#fca5a5', margin: '0 0 8px 0' }}>Database Connection Error</h3>
+          <h3 style={{ fontSize: '18px', color: '#991b1b', margin: '0 0 8px 0' }}>Database Connection Error</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: '0 0 16px 0' }}>{productsError}</p>
           <button onClick={fetchProducts} className="glass-button-secondary">
             Retry Connection
@@ -114,7 +114,7 @@ const ProductList = () => {
           margin: '20px 0'
         }}>
           <Search size={48} color="var(--text-dim)" style={{ marginBottom: '16px' }} />
-          <h3 style={{ fontSize: '20px', margin: '0 0 8px 0' }}>No Products Found</h3>
+          <h3 style={{ fontSize: '20px', margin: '0 0 8px 0', color: 'var(--text-main)' }}>No Products Found</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: '0 0 16px 0' }}>
             {searchQuery ? `No matches found for "${searchQuery}"` : `No products found in category "${selectedCategory}"`}
           </p>
