@@ -36,9 +36,6 @@ export const ShopProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState(null);
 
-  // Orders State
-  const [myOrders, setMyOrders] = useState([]);
-
   // Sync cart & wishlist to localStorage
   useEffect(() => {
     localStorage.setItem('shop_cart', JSON.stringify(cart));
@@ -51,7 +48,7 @@ export const ShopProvider = ({ children }) => {
   // Toast notification
   const showToast = useCallback((message, type = 'success') => {
     setToast({ message, type });
-    setTimeout(() => setToast(null), 3000);
+    setTimeout(() => setToast(null), 3500);
   }, []);
 
   // Fetch Products from Backend API
@@ -117,10 +114,11 @@ export const ShopProvider = ({ children }) => {
       localStorage.setItem('userInfo', JSON.stringify(data));
       showToast(`Welcome back, ${data.name}! 👋`);
       closeAuthModal();
-      return true;
+      return { success: true, user: data };
     } catch (err) {
       setAuthError(err.message);
-      return false;
+      showToast(err.message, 'danger');
+      return { success: false, error: err.message };
     } finally {
       setAuthLoading(false);
     }
@@ -140,17 +138,26 @@ export const ShopProvider = ({ children }) => {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || 'Registration failed');
+        const errorMsg = data.message || 'Registration failed';
+        
+        // Handle User Already Exists specifically
+        if (errorMsg.toLowerCase().includes('already exists')) {
+          showToast('⚠️ User with this email already exists! Redirecting to Sign In...', 'warning');
+          return { success: false, exists: true, message: errorMsg };
+        }
+        
+        throw new Error(errorMsg);
       }
 
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       showToast(`Welcome to Elegant Shop, ${data.name}! 🎉`);
       closeAuthModal();
-      return true;
+      return { success: true, user: data };
     } catch (err) {
       setAuthError(err.message);
-      return false;
+      showToast(err.message, 'danger');
+      return { success: false, exists: false, error: err.message };
     } finally {
       setAuthLoading(false);
     }
