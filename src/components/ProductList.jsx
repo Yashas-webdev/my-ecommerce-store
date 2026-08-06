@@ -1,11 +1,14 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useShop } from '../context/ShopContext';
 import ProductCard from './ProductCard';
-import products from '../data/product';
+import { Package, Search, RefreshCw, AlertTriangle } from 'lucide-react';
 
 const ProductList = () => {
-
   const {
+    products,
+    loadingProducts,
+    productsError,
+    fetchProducts,
     searchQuery,
     selectedCategory,
     addToCart,
@@ -13,95 +16,110 @@ const ProductList = () => {
     wishlist,
   } = useShop();
 
-  // useMemo - only recalculates when
-  // searchQuery or selectedCategory changes
-  const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
-
-      const matchesSearch = product.name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
-
-      const matchesCategory =
-        selectedCategory === 'All' ||
-        product.category === selectedCategory;
-
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchQuery, selectedCategory]);
-
   return (
-    <div style={{ padding: '0 20px' }}>
+    <div id="product-section" style={{ maxWidth: '1280px', margin: '40px auto', padding: '0 24px' }}>
 
-      {/* Products Count */}
-      <p style={{
-        marginTop: '20px',
-        color: '#666',
-        fontSize: '14px'
-      }}>
-        We have {products.length} products in our store
-      </p>
-
-      {/* Products Title */}
-      <h2 style={{
-        marginTop: '30px',
-        marginBottom: '20px'
-      }}>
-        Our Products:
-      </h2>
-
-      {/* Products Grid */}
+      {/* Section Header */}
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-        gap: '20px',
-        marginTop: '20px',
-        marginBottom: '40px'
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        marginBottom: '24px',
+        flexWrap: 'wrap',
+        gap: '12px'
       }}>
-        {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onAddToCart={addToCart}
-            onToggleWishlist={toggleWishlist}
-            isWishlisted={wishlist.some(
-              item => item.id === product.id
-            )}
-          />
-        ))}
+        <div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            color: 'var(--primary)',
+            fontSize: '13px',
+            fontWeight: '600',
+            marginBottom: '4px'
+          }}>
+            <Package size={16} /> LIVE MONGO DB CATALOG
+          </div>
+          <h2 style={{ fontSize: '28px', fontWeight: '800', margin: 0 }}>
+            Featured <span className="gradient-text">Products</span>
+          </h2>
+        </div>
+
+        <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+          Showing <span style={{ color: 'var(--text-main)', fontWeight: '700' }}>{products.length}</span> items in store
+        </p>
       </div>
 
-      {/* No Results Message */}
-      {filteredProducts.length === 0 && (
+      {/* Loading State */}
+      {loadingProducts && (
         <div style={{
+          padding: '80px 20px',
           textAlign: 'center',
-          padding: '50px',
-          color: '#666'
+          background: 'rgba(255, 255, 255, 0.02)',
+          borderRadius: '20px',
+          border: '1px solid rgba(255, 255, 255, 0.08)'
         }}>
-          <p style={{
-            fontSize: '48px',
-            margin: '20px 0'
-          }}>
-            🔍
-          </p>
-          <h3 style={{
-            fontSize: '24px',
-            margin: '10px 0'
-          }}>
-            No products found
-          </h3>
-          <p>Try searching for something else</p>
-          {searchQuery && (
-            <p style={{
-              marginTop: '10px',
-              color: '#999'
-            }}>
-              No results for "{searchQuery}"
-            </p>
-          )}
+          <RefreshCw size={36} color="var(--primary)" style={{ animation: 'logo-spin 1.5s linear infinite', marginBottom: '16px' }} />
+          <h3 style={{ fontSize: '18px', margin: '0 0 6px 0' }}>Fetching Products from Database...</h3>
+          <p style={{ color: 'var(--text-dim)', fontSize: '14px', margin: 0 }}>Connecting to Express / MongoDB backend</p>
         </div>
       )}
 
+      {/* Error State */}
+      {productsError && !loadingProducts && (
+        <div className="glass-panel" style={{
+          padding: '30px',
+          textAlign: 'center',
+          borderColor: 'rgba(239, 68, 68, 0.4)',
+          background: 'rgba(239, 68, 68, 0.08)'
+        }}>
+          <AlertTriangle size={36} color="#ef4444" style={{ marginBottom: '12px' }} />
+          <h3 style={{ fontSize: '18px', color: '#fca5a5', margin: '0 0 8px 0' }}>Database Connection Error</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: '0 0 16px 0' }}>{productsError}</p>
+          <button onClick={fetchProducts} className="glass-button-secondary">
+            Retry Connection
+          </button>
+        </div>
+      )}
+
+      {/* Products Grid */}
+      {!loadingProducts && !productsError && products.length > 0 && (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+          gap: '24px'
+        }}>
+          {products.map((product) => {
+            const pId = product._id || product.id;
+            return (
+              <ProductCard
+                key={pId}
+                product={product}
+                onAddToCart={addToCart}
+                onToggleWishlist={toggleWishlist}
+                isWishlisted={wishlist.some(
+                  item => (item._id || item.id) === pId
+                )}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {/* No Results Found */}
+      {!loadingProducts && !productsError && products.length === 0 && (
+        <div className="glass-panel" style={{
+          textAlign: 'center',
+          padding: '60px 20px',
+          margin: '20px 0'
+        }}>
+          <Search size={48} color="var(--text-dim)" style={{ marginBottom: '16px' }} />
+          <h3 style={{ fontSize: '20px', margin: '0 0 8px 0' }}>No Products Found</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: '0 0 16px 0' }}>
+            {searchQuery ? `No matches found for "${searchQuery}"` : `No products found in category "${selectedCategory}"`}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

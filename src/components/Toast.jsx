@@ -2,56 +2,51 @@ import React from 'react';
 import { useShop } from '../context/ShopContext';
 
 const Toast = () => {
-
   const { toast } = useShop();
 
-  // If no toast, render nothing
   if (!toast) return null;
 
+  const isString = typeof toast === 'string';
+  const message = isString ? toast : toast.message;
+  const type = isString ? 'success' : (toast.type || 'success');
+
+  const getBorderColor = () => {
+    if (type === 'danger') return 'rgba(239, 68, 68, 0.5)';
+    if (type === 'warning') return 'rgba(245, 158, 11, 0.5)';
+    return 'rgba(139, 92, 246, 0.5)';
+  };
+
+  const getGlowColor = () => {
+    if (type === 'danger') return 'rgba(239, 68, 68, 0.25)';
+    if (type === 'warning') return 'rgba(245, 158, 11, 0.25)';
+    return 'rgba(139, 92, 246, 0.25)';
+  };
+
   return (
-    <>
-      {/* Toast Notification */}
-      <div style={{
+    <div
+      className="animate-fadeIn"
+      style={{
         position: 'fixed',
-        bottom: '30px',
-        right: '30px',
-        backgroundColor: '#323232',
-        color: 'white',
-        padding: '16px 24px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-        fontSize: '16px',
-        fontWeight: '500',
+        bottom: '28px',
+        right: '28px',
+        background: 'rgba(15, 23, 42, 0.92)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        color: '#ffffff',
+        padding: '14px 22px',
+        borderRadius: '14px',
+        border: `1px solid ${getBorderColor()}`,
+        boxShadow: `0 10px 30px -5px ${getGlowColor()}`,
+        fontSize: '14px',
+        fontWeight: '600',
         zIndex: 9999,
-        animation: 'slideIn 0.3s ease-out',
-        minWidth: '200px',
-        textAlign: 'center'
-      }}>
-        {toast}
-      </div>
-
-      {/* Animation Style */}
-      <style>{`
-        @keyframes slideIn {
-          from {
-            transform: translateY(100px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-
-        @keyframes cartBounce {
-          0% { transform: scale(1); }
-          25% { transform: scale(1.2); }
-          50% { transform: scale(0.95); }
-          75% { transform: scale(1.05); }
-          100% { transform: scale(1); }
-        }
-      `}</style>
-    </>
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px'
+      }}
+    >
+      <span>{message}</span>
+    </div>
   );
 };
 

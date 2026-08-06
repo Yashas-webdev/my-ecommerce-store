@@ -1,13 +1,24 @@
-import React, { useState, useCallback, createContext, useContext } from 'react';
+import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';
 
-// Step 1: Create the context
+// Create Context
 const ShopContext = createContext();
 
-// Step 2: Create the provider
 export const ShopProvider = ({ children }) => {
 
-  const [cart, setCart] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  // Products from Backend API
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [productsError, setProductsError] = useState(null);
+
+  // Shop States
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem('shop_cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+  const [wishlist, setWishlist] = useState(() => {
+    const savedWishlist = localStorage.getItem('shop_wishlist');
+    return savedWishlist ? JSON.parse(savedWishlist) : [];
+  });
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [showCart, setShowCart] = useState(false);
@@ -15,24 +26,155 @@ export const ShopProvider = ({ children }) => {
   const [toast, setToast] = useState(null);
   const [cartBounce, setCartBounce] = useState(false);
 
+  // User Auth States
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('userInfo');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState(null);
+
+  // Orders State
+  const [myOrders, setMyOrders] = useState([]);
+
+  // Sync cart & wishlist to localStorage
+  useEffect(() => {
+    localStorage.setItem('shop_cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem('shop_wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
+
   // Toast notification
-  const showToast = useCallback((message) => {
-    setToast(message);
-    setTimeout(() => setToast(null), 2000);
+  const showToast = useCallback((message, type = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
   }, []);
+
+  // Fetch Products from Backend API
+  const fetchProducts = useCallback(async () => {
+    try {
+      setLoadingProducts(true);
+      setProductsError(null);
+
+      let url = '/api/products';
+      const params = new URLSearchParams();
+      if (searchQuery) params.append('keyword', searchQuery);
+      if (selectedCategory && selectedCategory !== 'All') params.append('category', selectedCategory);
+      if (params.toString()) url += `?${params.toString()}`;
+
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error('Failed to fetch products from backend');
+      }
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      console.error('Fetch products error:', err);
+      setProductsError(err.message);
+    } finally {
+      setLoadingProducts(false);
+    }
+  }, [searchQuery, selectedCategory]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  // Auth Functions
+  const openAuthModal = (mode = 'login') => {
+    setAuthMode(mode);
+    setAuthError(null);
+    setShowAuthModal(true);
+  };
+
+  const closeAuthModal = () => {
+    setShowAuthModal(false);
+    setAuthError(null);
+  };
+
+  const login = async (email, password) => {
+    try {
+      setAuthLoading(true);
+      setAuthError(null);
+
+      const res = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Invalid login credentials');
+      }
+
+      setUser(data);
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      showToast(`Welcome back, ${data.name}! 👋`);
+      closeAuthModal();
+      return true;
+    } catch (err) {
+      setAuthError(err.message);
+      return false;
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const register = async (name, email, password) => {
+    try {
+      setAuthLoading(true);
+      setAuthError(null);
+
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+
+      setUser(data);
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      showToast(`Welcome to Elegant Shop, ${data.name}! 🎉`);
+      closeAuthModal();
+      return true;
+    } catch (err) {
+      setAuthError(err.message);
+      return false;
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('userInfo');
+    showToast('Logged out successfully');
+  };
 
   // Add to cart
   const addToCart = useCallback((product) => {
-    const existingItem = cart.find(item => item.id === product.id);
+    const pId = product._id || product.id;
+    const existingItem = cart.find(item => (item._id || item.id) === pId);
 
     if (existingItem) {
       setCart(cart.map(item =>
-        item.id === product.id
+        (item._id || item.id) === pId
           ? { ...item, quantity: item.quantity + 1 }
           : item
       ));
     } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
+      setCart([...cart, { ...product, id: pId, quantity: 1 }]);
     }
 
     showToast('✓ Added to cart!');
@@ -43,7 +185,7 @@ export const ShopProvider = ({ children }) => {
   // Update quantity
   const updateQuantity = useCallback((productId, change) => {
     setCart(cart.map(item =>
-      item.id === productId
+      (item._id || item.id) === productId
         ? { ...item, quantity: Math.max(1, item.quantity + change) }
         : item
     ));
@@ -51,26 +193,27 @@ export const ShopProvider = ({ children }) => {
 
   // Remove from cart
   const removeFromCart = useCallback((productId) => {
-    setCart(cart.filter(item => item.id !== productId));
+    setCart(cart.filter(item => (item._id || item.id) !== productId));
     showToast('🗑️ Removed from cart');
   }, [cart, showToast]);
 
   // Toggle wishlist
   const toggleWishlist = useCallback((product) => {
-    const isInWishlist = wishlist.some(item => item.id === product.id);
+    const pId = product._id || product.id;
+    const isInWishlist = wishlist.some(item => (item._id || item.id) === pId);
 
     if (isInWishlist) {
-      setWishlist(wishlist.filter(item => item.id !== product.id));
+      setWishlist(wishlist.filter(item => (item._id || item.id) !== pId));
       showToast('💔 Removed from wishlist');
     } else {
-      setWishlist([...wishlist, product]);
+      setWishlist([...wishlist, { ...product, id: pId }]);
       showToast('❤️ Added to wishlist!');
     }
   }, [wishlist, showToast]);
 
   // Remove from wishlist
   const removeFromWishlist = useCallback((productId) => {
-    setWishlist(wishlist.filter(w => w.id !== productId));
+    setWishlist(wishlist.filter(w => (w._id || w.id) !== productId));
     showToast('💔 Removed from wishlist');
   }, [wishlist, showToast]);
 
@@ -79,9 +222,70 @@ export const ShopProvider = ({ children }) => {
     total + (item.price * item.quantity), 0
   );
 
-  // All values and functions shared across components
+  // Create Order Endpoint integration
+  const createOrder = async (shippingDetails) => {
+    if (!user) {
+      openAuthModal('login');
+      showToast('Please login to place an order', 'warning');
+      return false;
+    }
+
+    try {
+      const orderData = {
+        orderItems: cart.map(item => ({
+          name: item.name,
+          quantity: item.quantity,
+          image: item.image,
+          price: item.price,
+          product: item._id || item.id
+        })),
+        shippingAddress: shippingDetails || {
+          address: '123 Main Street',
+          city: 'New York',
+          postalCode: '10001',
+          country: 'USA'
+        },
+        paymentMethod: 'PayPal / Credit Card',
+        itemsPrice: cartTotal,
+        taxPrice: Number((cartTotal * 0.1).toFixed(2)),
+        shippingPrice: cartTotal > 100 ? 0 : 10,
+        totalPrice: Number((cartTotal * 1.1 + (cartTotal > 100 ? 0 : 10)).toFixed(2))
+      };
+
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to place order');
+      }
+
+      setCart([]);
+      setShowCart(false);
+      showToast(`🎉 Order #${data._id.substring(18)} placed successfully!`);
+      return data;
+    } catch (err) {
+      console.error('Create order error:', err);
+      showToast(err.message, 'danger');
+      return false;
+    }
+  };
+
   const value = {
-    // State
+    // Products State
+    products,
+    loadingProducts,
+    productsError,
+    fetchProducts,
+
+    // Shop State
     cart,
     wishlist,
     searchQuery,
@@ -92,12 +296,24 @@ export const ShopProvider = ({ children }) => {
     cartBounce,
     cartTotal,
 
+    // Auth State & Methods
+    user,
+    showAuthModal,
+    authMode,
+    authLoading,
+    authError,
+    openAuthModal,
+    closeAuthModal,
+    setAuthMode,
+    login,
+    register,
+    logout,
+
     // Setters
     setSearchQuery,
     setSelectedCategory,
     setShowCart,
     setActiveTab,
-    setWishlist,
 
     // Functions
     addToCart,
@@ -105,6 +321,7 @@ export const ShopProvider = ({ children }) => {
     removeFromCart,
     toggleWishlist,
     removeFromWishlist,
+    createOrder,
     showToast,
   };
 
@@ -115,7 +332,6 @@ export const ShopProvider = ({ children }) => {
   );
 };
 
-// Step 3: Custom hook to use the context
 export const useShop = () => {
   const context = useContext(ShopContext);
   if (!context) {

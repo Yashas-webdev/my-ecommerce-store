@@ -3,32 +3,38 @@ import { ShopProvider } from './context/ShopContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProductList from './components/ProductList';
-import ProductCard from './components/ProductCard';
 import CartSidebar from './components/CartSidebar';
+import AuthModal from './components/AuthModal';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
 
 const App = () => {
   return (
     <ShopProvider>
-      <div style={{ padding: '0' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 
-        {/* Header - Sticky navbar with search and cart */}
+        {/* Sticky Frosted Glass Navbar */}
         <Header />
 
-        {/* Hero - Banner section */}
-        <Hero />
+        {/* Main Content Area */}
+        <main style={{ flex: 1 }}>
+          {/* Glass Hero Banner */}
+          <Hero />
 
-        {/* Product List - Grid of all products */}
-        <ProductList />
+          {/* MongoDB Backend Product List Grid */}
+          <ProductList />
+        </main>
 
-        {/* Cart Sidebar - Slides in from right */}
+        {/* Slide-in Glass Cart & Checkout Sidebar Drawer */}
         <CartSidebar />
+
+        {/* Sign In & Sign Up Glassmorphism Modal */}
+        <AuthModal />
 
         {/* Footer */}
         <Footer />
 
-        {/* Toast - Notification popup */}
+        {/* Toast Notification Container */}
         <Toast />
 
       </div>
