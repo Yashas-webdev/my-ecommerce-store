@@ -44,7 +44,7 @@ const Header = () => {
           gap: '20px',
           flexWrap: 'wrap'
         }}>
-          {/* Store Brand: LUMINA LUXE */}
+          {/* Store Brand: NOVACRAFT */}
           <div 
             onClick={() => setViewMode('store')}
             style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
@@ -64,7 +64,7 @@ const Header = () => {
             </div>
             <div>
               <h1 className="gradient-text" style={{ fontSize: '25px', fontWeight: '800', letterSpacing: '-0.5px', margin: 0, lineHeight: 1 }}>
-                LUMINA LUXE
+                NOVACRAFT
               </h1>
               <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '2.5px', fontWeight: '700' }}>
                 Boutique Store

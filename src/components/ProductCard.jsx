@@ -1,18 +1,31 @@
 import React from 'react';
-import { Star, ShoppingCart, Heart, Tag } from 'lucide-react';
+import { useShop } from '../context/ShopContext';
+import { Star, ShoppingCart, Heart, Tag, Eye } from 'lucide-react';
 
 const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) => {
+  const { openProductDetails } = useShop();
   const pId = product._id || product.id;
   const stockCount = product.countInStock || 10;
 
+  const handleCardClick = (e) => {
+    // If click was on button, don't trigger modal
+    if (e.target.closest('button')) return;
+    openProductDetails(product);
+  };
+
   return (
-    <div className="glass-card" style={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%',
-      overflow: 'hidden',
-      position: 'relative'
-    }}>
+    <div 
+      onClick={handleCardClick}
+      className="glass-card" 
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        overflow: 'hidden',
+        position: 'relative',
+        cursor: 'pointer'
+      }}
+    >
       {/* Category Tag */}
       <div style={{
         position: 'absolute',
@@ -37,7 +50,10 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
 
       {/* Wishlist Button */}
       <button
-        onClick={() => onToggleWishlist(product)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleWishlist(product);
+        }}
         style={{
           position: 'absolute',
           top: '14px',
@@ -84,6 +100,27 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
           onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.08)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         />
+
+        {/* Quick Details Hover Hint */}
+        <div style={{
+          position: 'absolute',
+          bottom: '10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(15, 23, 42, 0.75)',
+          backdropFilter: 'blur(8px)',
+          color: '#ffffff',
+          padding: '4px 12px',
+          borderRadius: '20px',
+          fontSize: '11px',
+          fontWeight: '700',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          pointerEvents: 'none'
+        }}>
+          <Eye size={12} /> Click for Full Specs
+        </div>
       </div>
 
       {/* Product Content */}
@@ -155,7 +192,10 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
           </div>
 
           <button
-            onClick={() => onAddToCart(product)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddToCart(product);
+            }}
             className="glass-button"
             style={{
               padding: '10px 16px',

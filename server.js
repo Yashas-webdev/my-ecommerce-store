@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 // Root / Health check route
 app.get('/', (req, res) => {
   res.json({
-    message: '🚀 Elegant Shop API is running smoothly',
+    message: '🚀 NovaCraft API is running smoothly',
     status: 'success'
   })
 })

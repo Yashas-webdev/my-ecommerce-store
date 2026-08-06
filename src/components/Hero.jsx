@@ -79,7 +79,7 @@ const Hero = () => {
               letterSpacing: '-1px',
               color: 'var(--text-main)'
             }}>
-              Elevate Your Shopping with <span className="gradient-text">Lumina Luxe</span>
+              Elevate Your Shopping with <span className="gradient-text">NovaCraft</span>
             </h2>
 
             {/* Subtext */}
@@ -89,7 +89,7 @@ const Hero = () => {
               lineHeight: '1.6',
               margin: '0 0 28px 0'
             }}>
-              Discover curated luxury electronics, fashion apparel, and home decor with real-time MongoDB database sync & secure JWT authentication.
+              Discover boutique electronics, fashion apparel, and home decor with real-time MongoDB database sync & secure JWT authentication.
             </p>
 
             {/* Action Buttons */}

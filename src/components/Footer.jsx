@@ -32,7 +32,7 @@ const Footer = () => {
                 <Sparkles size={18} color="#ffffff" />
               </div>
               <h3 className="gradient-text" style={{ fontSize: '20px', fontWeight: '800', margin: 0 }}>
-                LUMINA LUXE
+                NOVACRAFT
               </h3>
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6', margin: '0 0 20px 0' }}>
@@ -78,7 +78,7 @@ const Footer = () => {
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-muted)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Mail size={16} color="var(--primary)" /> support@luminaluxe.com
+                <Mail size={16} color="var(--primary)" /> support@novacraft.com
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <Phone size={16} color="#0284c7" /> +1 (555) 987-6543
@@ -98,7 +98,7 @@ const Footer = () => {
           color: 'var(--text-dim)',
           fontSize: '13px'
         }}>
-          &copy; {new Date().getFullYear()} Lumina Luxe. All Rights Reserved. Crafted with MERN Stack & Premium UI.
+          &copy; {new Date().getFullYear()} NovaCraft. All Rights Reserved. Crafted with MERN Stack & Premium UI.
         </div>
       </div>
     </footer>

@@ -146,7 +146,7 @@ const AdminDashboard = () => {
             <ShieldCheck size={14} /> Store Manager Control Panel
           </div>
           <h2 style={{ fontSize: '32px', fontWeight: '800', margin: 0, color: 'var(--text-main)' }}>
-            Lumina Luxe <span className="gradient-text">Admin Panel</span>
+            NovaCraft <span className="gradient-text">Admin Panel</span>
           </h2>
         </div>
 

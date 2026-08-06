@@ -26,6 +26,7 @@ export const ShopProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState('cart');
   const [toast, setToast] = useState(null);
   const [cartBounce, setCartBounce] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // User Auth States
   const [user, setUser] = useState(() => {
@@ -152,7 +153,7 @@ export const ShopProvider = ({ children }) => {
 
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
-      showToast(`Welcome to Elegant Shop, ${data.name}! 🎉`);
+      showToast(`Welcome to NovaCraft, ${data.name}! 🎉`);
       closeAuthModal();
       return { success: true, user: data };
     } catch (err) {
@@ -409,10 +410,18 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+  const openProductDetails = (prod) => setSelectedProduct(prod);
+  const closeProductDetails = () => setSelectedProduct(null);
+
   const value = {
     // Navigation & View Mode
     viewMode,
     setViewMode,
+
+    // Product Details Modal State & Methods
+    selectedProduct,
+    openProductDetails,
+    closeProductDetails,
 
     // Products State
     products,

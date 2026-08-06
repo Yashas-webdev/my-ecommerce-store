@@ -3,6 +3,7 @@ import { ShopProvider, useShop } from './context/ShopContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProductList from './components/ProductList';
+import ProductDetailsModal from './components/ProductDetailsModal';
 import CartSidebar from './components/CartSidebar';
 import AuthModal from './components/AuthModal';
 import AuthPage from './components/AuthPage';
@@ -55,6 +56,9 @@ const ProtectedDashboard = () => {
 
       {/* Slide-in Glass Cart & Order Checkout Drawer */}
       <CartSidebar />
+
+      {/* Product Details Glass Modal */}
+      <ProductDetailsModal />
 
       {/* Auth Modal */}
       <AuthModal />

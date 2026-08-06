@@ -97,7 +97,7 @@ const AuthPage = () => {
             fontWeight: '700',
             marginBottom: '16px'
           }}>
-            <Sparkles size={16} color="var(--primary)" /> LUMINA LUXE AUTH
+            <Sparkles size={16} color="var(--primary)" /> NOVACRAFT AUTH
           </div>
 
           <h1 className="gradient-text" style={{ fontSize: '32px', fontWeight: '800', margin: '0 0 8px 0', letterSpacing: '-0.5px' }}>
@@ -105,7 +105,7 @@ const AuthPage = () => {
           </h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0, lineHeight: '1.5' }}>
             {isSignUp 
-              ? 'Sign up to unlock the exclusive Lumina Luxe boutique catalog' 
+              ? 'Sign up to unlock the exclusive NovaCraft boutique catalog' 
               : 'Sign in to access your cart, orders & account'}
           </p>
         </div>
