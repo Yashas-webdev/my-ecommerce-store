@@ -15,8 +15,7 @@
       "dest": "https://my-ecommerce-store-htu2.onrender.com/api/$1"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
