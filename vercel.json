@@ -2,10 +2,10 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://my-ecommerce-store-htu2.onrender.com"
+      "destination": "https://my-ecommerce-store-htu2.onrender.com/api/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!assets/|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
