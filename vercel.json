@@ -3,10 +3,6 @@
     {
       "source": "/api/:path*",
       "destination": "https://my-ecommerce-store-htu2.onrender.com/api/:path*"
-    },
-    {
-      "source": "/((?!assets/|.*\\..*).*)",
-      "destination": "/index.html"
     }
   ]
 }
